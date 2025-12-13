@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Browse the gallery of toppers, events, classrooms, and pamphlets at Toppers Point Coaching, Ashta, MP.">
+  <link rel="canonical" href="https://topperspoint.in/gallery.html">
+  <title>Gallery - Toppers Point Coaching</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gallery - Toppers Point Coaching | Ashta, MP">
+  <meta property="og:description" content="Photos of toppers, events, classrooms and pamphlets.">
+  <meta property="og:url" content="https://topperspoint.in/gallery.html">
+  <meta property="og:image" content="https://topperspoint.in/images/logo.png">
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gallery - Toppers Point Coaching | Ashta, MP">
+  <meta name="twitter:description" content="Explore our gallery of achievements and activities.">
+  <meta name="twitter:image" content="https://topperspoint.in/images/logo.png">
+  <!-- JSON-LD: EducationalOrganization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Toppers Point Coaching",
+    "url": "https://topperspoint.in/gallery.html",
+    "logo": "https://topperspoint.in/images/logo.png",
+    "image": "https://topperspoint.in/images/logo.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Toppers Point Bajarnag colony near sony ladge Ashta (M.P)",
+      "addressLocality": "Ashta",
+      "addressRegion": "MP",
+      "addressCountry": "IN"
+    },
+    "telephone": "+91 7869703381",
+    "sameAs": [
+      "https://www.instagram.com/toppers_point_coaching_ashta/?__pwa=1#",
+      "https://www.facebook.com/mewadajai777",
+      "https://wa.me/917869703381"
+    ]
+  }
+  </script>
+  <script type="module">
+    import { applySEO } from '/js/seo.js';
+    applySEO({
+      title: 'Gallery - Toppers Point Coaching | Ashta, MP',
+      description: 'Photos of toppers, events, classrooms and pamphlets.',
+      path: '/gallery.html',
+    });
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <img src="/images/logo.png" alt="logo" />
+      <nav>
+        <a href="/">Home</a>
+        <a href="/toppers.html">Toppers</a>
+        <a href="/gallery.html" class="active">Gallery</a>
+        <a href="/events.html">Events</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Gallery</h1>
+    <p>Photos of toppers, events, classrooms and pamphlets.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="toppers">Toppers</button>
+      <button class="tab-btn" data-tab="events">Events</button>
+      <button class="tab-btn" data-tab="classroom">Classrooms</button>
+      <button class="tab-btn" data-tab="pamphlets">Pamphlets</button>
+    </div>
+
+    <div id="galleryGrid" class="grid gallery-grid"></div>
+  </main>
+
+  <footer>© <span id="year3"></span> Toppers Point Coaching</footer>
+
+  <script src="/js/main.js"></script>
+  <script>document.getElementById('year3').innerText = new Date().getFullYear();</script>
+</body>
+</html>

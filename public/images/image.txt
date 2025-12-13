@@ -1,0 +1,25 @@
+│   │   ├── logo.png                <-- add site logo here
+│   │   ├── toppers/                <-- add topper photos here (e.g. raj.jpg)
+│   │   ├── events/                 <-- add event photos here
+│   │   ├── pamphlets/              <-- add pamphlet images here
+│   │   └── faculty/  
+
+📌 Where to add images & logos
+
+Place your images in the public/images/ folder as follows:
+
+Site logo: public/images/logo.png
+(used in header on all pages)
+
+Toppers photos: public/images/toppers/
+e.g. public/images/toppers/raj.jpg, public/images/toppers/riya.jpg (used for static gallery previews)
+
+Event photos: public/images/events/
+e.g. public/images/events/annual_day.jpg
+
+Pamphlets / Posters: public/images/pamphlets/
+e.g. public/images/pamphlets/pamp1.jpg
+
+Faculty / Classroom photos: public/images/faculty/
+
+When you add toppers via the admin UI, uploaded images will be stored in uploads/ and served at /uploads/<filename>. The backend will save the image path (e.g. /uploads/169xxx.jpg) in the DB and frontend will use that path.

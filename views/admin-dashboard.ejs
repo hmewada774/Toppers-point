@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard | Toppers Point</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Welcome to Admin Dashboard</h1>
+
+  <h3>Add Topper</h3>
+  <form method="POST" action="/admin/add-topper" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="number" name="year" placeholder="Year" required>
+    <input type="text" name="class" placeholder="Class (10/11/12)" required>
+    <input type="text" name="subject" placeholder="Subject" required>
+    <input type="number" name="marks" placeholder="Marks" required>
+    <input type="file" name="photo" required>
+    <button type="submit">Add Topper</button>
+  </form>
+
+  <h3>Add Event</h3>
+  <form method="POST" action="/admin/add-event" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Event Title" required>
+    <input type="number" name="year" placeholder="Year" required>
+    <input type="file" name="image" required>
+    <button type="submit">Add Event</button>
+  </form>
+</body>
+</html>

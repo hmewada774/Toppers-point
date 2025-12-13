@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin Login — Toppers Point</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="module">
+    import { applySEO } from '/js/seo.js';
+    applySEO({
+      title: 'Admin Login — Toppers Point',
+      description: 'Login to the Toppers Point admin panel.',
+      path: '/admin-login.html',
+      robots: 'noindex, nofollow',
+    });
+  </script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container nav-container">
+    <img src="/images/logo.png" alt="Toppers Point Logo" class="logo">
+    <nav>
+      <a href="/" data-route="/">Home</a>
+    </nav>
+  </div>
+  </header>
+
+<section class="container" style="max-width:420px;padding:40px 20px;">
+  <h2 style="text-align:center;color:#004aad;">Admin Login</h2>
+  <form id="loginForm" style="display:flex;flex-direction:column;gap:12px;margin-top:18px;">
+    <input type="text" name="username" placeholder="Username" >
+    <input type="password" name="password" placeholder="Password">
+    <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#374151;">
+      <input type="checkbox" id="rememberMe"> Remember me
+    </label>
+    <button type="submit" class="btn-primary">Login</button>
+    <div id="loginError" style="color:#b91c1c;display:none;">Invalid credentials</div>
+  </form>
+</section>
+
+<script src="/js/main.js"></script>
+<script>
+  // If already authenticated, redirect straight to /admin
+  fetch('/api/auth/me').then(r=>r.json()).then(me=>{ if(me.authenticated){ window.location.href='/admin'; }}).catch(()=>{});
+
+  // Prefill from localStorage
+  const saved = JSON.parse(localStorage.getItem('tp_admin_login')||'{}');
+  if(saved.username){ document.querySelector('input[name="username"]').value = saved.username; document.getElementById('rememberMe').checked = true; }
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const body = { username: fd.get('username'), password: fd.get('password') };
+    const res = await fetch('/api/auth/login', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if(document.getElementById('rememberMe').checked){
+        localStorage.setItem('tp_admin_login', JSON.stringify({ username: body.username }));
+      } else {
+        localStorage.removeItem('tp_admin_login');
+      }
+      window.location.href = data.redirect || '/admin';
+    } else {
+      const msg = await res.json().catch(()=>({message:'Invalid credentials'}));
+      const err = document.getElementById('loginError');
+      err.textContent = msg.message || 'Invalid credentials';
+      err.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,116 @@
+/* ================================
+   HERO SECTION – NEW MODERN DESIGN
+=================================== */
+
+.hero {
+    background: linear-gradient(135deg, #033f8c, #0a5dff);
+    padding: 120px 20px 90px;
+    text-align: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hero .title-strong {
+    color: #ff7a00;
+    font-weight: 700;
+}
+
+.hero .subtitle {
+    font-size: 20px;
+    opacity: 0.95;
+    margin-bottom: 25px;
+}
+
+/* Pill Buttons */
+.course-tags {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.tag {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 18px;
+    border-radius: 25px;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    font-size: 15px;
+    backdrop-filter: blur(3px);
+}
+
+/* Enrollment Card */
+.enroll-box-new {
+    background: #062b63;
+    padding: 30px 25px;
+    border-radius: 15px;
+    max-width: 650px;
+    margin: 40px auto 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.enroll-box-new h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.enroll-box-new p {
+    font-size: 15px;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+/* Call-to-action Buttons */
+.hero-buttons {
+    margin-top: 30px;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    margin: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    background: #ff7a00;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+    background: #ff9440;
+}
+
+.hero-btn.secondary {
+    background: #ffffff;
+    color: #0a4bc4;
+}
+
+.hero-btn.secondary:hover {
+    background: #dce9ff;
+}
+
+/* Small text on right side */
+.hero-note {
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.95;
+}
+
+/* Responsive */
+@media(max-width: 768px){
+    .hero h1 { font-size: 36px; }
+    .tag { font-size: 14px; }
+    .hero-btn { font-size: 16px; padding: 12px 25px; }
+    .enroll-box-new { padding: 20px; }
+}

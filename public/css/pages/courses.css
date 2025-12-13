@@ -1,0 +1,296 @@
+/* ============================================
+   COURSES PAGE STYLES
+   ============================================ */
+
+/* Import base styles */
+@import '../style.css';
+
+/* Footer Styles */
+.footer {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 3rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.footer h3 {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-block;
+  padding: 0.25rem 0;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+.footer-contact p {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--bg-tertiary);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-section {
+    text-align: center;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+}
+
+/* Ensure the page takes up at least the full viewport height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main layout */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+main {
+  flex: 1;
+  padding-top: 80px; /* Space for fixed header */
+}
+
+/* Hero Section */
+.courses-hero {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  color: white;
+  padding: 8rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.courses-hero .hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.courses-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.courses-hero .hero-sub {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Course Grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Course Card */
+.course-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #e5e7eb;
+  margin: 0.5rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.course-card h3 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  color: #1e40af;
+  line-height: 1.3;
+}
+
+.course-card p {
+  margin: 0.5rem 0;
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.course-card .btn {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+}
+
+/* ... (rest of your existing courses.css content) ... */
+
+/* Ensure footer stays at bottom */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* Additional responsive styles */
+@media (max-width: 1024px) {
+  .courses-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    padding: 0 1.5rem;
+  }
+  
+  .course-card {
+    padding: 1.25rem;
+  }
+  
+  .course-card h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .courses-hero {
+    padding: 5rem 1.5rem 2.5rem;
+  }
+  
+  .courses-hero h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .courses-hero .hero-sub {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+  
+  .section-title {
+    padding: 0 1rem;
+  }
+  
+  .section-title h2 {
+    font-size: 1.5rem;
+  }
+  
+  .section-title p {
+    font-size: 1rem;
+  }
+}
+
+/* Ensure text doesn't overflow */
+.course-card h3,
+.course-card p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Improve button visibility */
+.btn {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 100%;
+}

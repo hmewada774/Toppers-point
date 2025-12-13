@@ -1,0 +1,161 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login | Toppers Point</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <form method="POST" action="/api/auth/login" autocomplete="off" id="loginForm">
+      <input 
+        type="text" 
+        name="login_username" 
+        placeholder="Username" 
+        autocomplete="off"
+        required
+      ><br>
+      <input 
+        type="password" 
+        name="login_password" 
+        placeholder="Password" 
+        autocomplete="off"
+        required
+      ><br>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <script>
+    // Clear any autofilled values on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('loginForm');
+      const inputs = form.querySelectorAll('input');
+      
+      // Clear any autofilled values
+      inputs.forEach(input => {
+        input.value = '';
+        input.setAttribute('autocomplete', 'off');
+      });
+      
+      // Prevent form submission if fields are autofilled
+      form.addEventListener('submit', function(e) {
+        // This ensures the form is submitted with the correct field names
+        const hiddenUsername = document.createElement('input');
+        hiddenUsername.type = 'hidden';
+        hiddenUsername.name = 'username';
+        hiddenUsername.value = this.login_username.value;
+        
+        const hiddenPassword = document.createElement('input');
+        hiddenPassword.type = 'hidden';
+        hiddenPassword.name = 'password';
+        hiddenPassword.value = this.login_password.value;
+        
+        this.appendChild(hiddenUsername);
+        this.appendChild(hiddenPassword);
+      });
+    });
+  </script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login | Toppers Point</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<!-- EARLY SCRIPT ➜ Prevent Chrome/Edge from restoring password BEFORE paint -->
+<script>
+(function() {
+    function wipe(id) {
+        const oldEl = document.getElementById(id);
+        if (!oldEl) return;
+
+        const newEl = oldEl.cloneNode(true);
+        newEl.value = "";              // ensure blank
+        newEl.removeAttribute("autocomplete");  // extra protection
+        oldEl.replaceWith(newEl);
+    }
+
+    // Wait 0ms → runs before page paints
+    window.addEventListener("DOMContentLoaded", () => {
+        wipe("real_user_field");
+        wipe("real_pass_field");
+    });
+})();
+</script>
+
+
+  <div class="login-box">
+    <h2>Admin Login</h2>
+
+    <form method="POST" action="/api/auth/login" id="loginForm" autocomplete="off">
+
+      <!-- Fake autofill traps -->
+      <input type="text" name="trap_user" style="display:none">
+      <input type="password" name="trap_pass" style="display:none">
+
+      <!-- REAL USERNAME (RENAMED so browser won't detect it) -->
+      <input 
+        type="text"
+        id="real_user_field"
+        name="ux1"
+        placeholder="Username"
+        readonly
+        autocomplete="off"
+        onfocus="this.removeAttribute('readonly')"
+        required
+      ><br>
+
+      <!-- Dummy fields -->
+      <input type="text" name="ignore1" style="display:none">
+      <input type="password" name="ignore2" style="display:none">
+
+      <!-- REAL PASSWORD (RENAMED + protection) -->
+      <input 
+        type="text"
+        id="real_pass_field"
+        name="px1"
+        placeholder="Password"
+        readonly
+        autocomplete="new-password"
+        onfocus="
+          this.removeAttribute('readonly');
+          this.setAttribute('type','password');
+        "
+        required
+      ><br>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    // On submit, send real username/password under backend names
+    document.getElementById("loginForm").addEventListener("submit", function () {
+      const U = document.getElementById("real_user_field").value;
+      const P = document.getElementById("real_pass_field").value;
+
+      const realU = document.createElement("input");
+      realU.type = "hidden";
+      realU.name = "username"; // backend field
+      realU.value = U;
+
+      const realP = document.createElement("input");
+      realP.type = "hidden";
+      realP.name = "password"; // backend field
+      realP.value = P;
+
+      this.appendChild(realU);
+      this.appendChild(realP);
+    });
+  </script>
+
+</body>
+</html>

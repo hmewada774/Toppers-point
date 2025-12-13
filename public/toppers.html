@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View our toppers and achievers at Toppers Point Coaching. Filter by class, year, and subject to see outstanding results.">
+  <title>Toppers - Toppers Point Coaching</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="canonical" href="https://topperspoint.in/toppers.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Toppers - Toppers Point Coaching | Ashta, MP">
+  <meta property="og:description" content="Meet our star performers across Classes 8–12.">
+  <meta property="og:url" content="https://topperspoint.in/toppers.html">
+  <meta property="og:image" content="https://topperspoint.in/images/logo.png">
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Toppers - Toppers Point Coaching | Ashta, MP">
+  <meta name="twitter:description" content="Browse toppers by class, year, and subject.">
+  <meta name="twitter:image" content="https://topperspoint.in/images/logo.png">
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Toppers Point Coaching",
+    "url": "https://topperspoint.in/toppers.html",
+    "logo": "https://topperspoint.in/images/logo.png",
+    "image": "https://topperspoint.in/images/logo.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Toppers Point Bajarnag colony near sony ladge Ashta (M.P)",
+      "addressLocality": "Ashta",
+      "addressRegion": "MP",
+      "addressCountry": "IN"
+    },
+    "telephone": "+91 7869703381",
+    "sameAs": [
+      "https://www.instagram.com/toppers_point_coaching_ashta/?__pwa=1#",
+      "https://www.facebook.com/mewadajai777",
+      "https://wa.me/917869703381"
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="module">
+    import { applySEO } from '/js/seo.js';
+    applySEO({
+      title: 'Toppers - Toppers Point Coaching | Ashta, MP',
+      description: 'View our toppers and achievers at Toppers Point Coaching. Filter by class, year, and subject to see outstanding results.',
+      path: '/toppers.html',
+    });
+  </script>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="container nav-container">
+    <img src="/images/logo.png" alt="Toppers Point Logo" class="logo">
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav id="mainNav">
+      <a href="/">Home</a>
+      <a href="/toppers.html" class="active">Toppers</a>
+      <a href="/courses.html">Courses</a>
+      <a href="/events.html">Events</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="toppers-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our Toppers</h2>
+      <p>Celebrating excellence and outstanding achievements of our students</p>
+    </div>
+
+    <div class="filter-box">
+      <label for="classFilter">
+        <i class="fas fa-filter"></i> Class:
+      </label>
+      <select id="classFilter">
+        <option value="all">All Classes</option>
+        <option value="8">Class 8</option>
+        <option value="9">Class 9</option>
+        <option value="10">Class 10</option>
+        <option value="11">Class 11</option>
+        <option value="12">Class 12</option>
+      </select>
+
+      <label for="yearFilter">
+        <i class="fas fa-calendar"></i> Year:
+      </label>
+      <select id="yearFilter">
+        <option value="all">All Years</option>
+      </select>
+
+      <label for="subjectFilter" id="subjectLabel">
+        <i class="fas fa-book"></i> Subject:
+      </label>
+      <select id="subjectFilter">
+        <option value="all">All Subjects</option>
+      </select>
+    </div>
+
+    <div id="toppersContainer" class="grid grid-4">
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <div id="noResults" style="display: none; text-align: center; padding: 3rem; color: var(--text-secondary);">
+      <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+      <h3>No toppers found</h3>
+      <p>Try adjusting your filters to see more results.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p><strong>Visit:</strong> Toppers Point Bajarnag colony near sony ladge Ashta (M.P)</p>
+    <p><strong>Phone:</strong> +91 7869703381</p>
+    <p><strong>Email:</strong> <a href="mailto:topperspoint@gmail.com">topperspoint@gmail.com</a></p>
+    <p>
+      <a href="https://www.instagram.com/toppers_point_coaching_ashta/?__pwa=1#" target="_blank" rel="noopener">Instagram</a> |
+      <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener">Facebook</a> |
+      <a href="https://wa.me/917869703381" target="_blank" rel="noopener">WhatsApp</a> |
+      <a href="mailto:topperspoint@gmail.com">Gmail</a>
+    </p>
+    <p>© <span id="year"></span> Toppers Point Coaching. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- Quick Contact Buttons -->
+<div class="quick-contact">
+  <a href="https://wa.me/917869703381?text=Hi! I'm interested in enrolling at Toppers Point Coaching. Can you provide more information?" 
+     target="_blank" 
+     rel="noopener" 
+     class="quick-contact-btn whatsapp" 
+     aria-label="Contact via WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="tooltip">Chat on WhatsApp</span>
+  </a>
+  <a href="tel:+917869703381" 
+     class="quick-contact-btn phone" 
+     aria-label="Call us">
+    <i class="fas fa-phone"></i>
+    <span class="tooltip">Call Us Now</span>
+  </a>
+</div>
+
+<button id="scrollTopBtn" class="scroll-top" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="/js/main.js"></script>
+<script>
+  document.getElementById('year').innerText = new Date().getFullYear();
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+  
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      mainNav.classList.toggle('active');
+    });
+
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        mainNav.classList.remove('active');
+      });
+    });
+  }
+
+  // Enhanced toppers page filtering
+  if (window.location.pathname.endsWith('toppers.html')) {
+    const container = document.getElementById('toppersContainer');
+    const classSelect = document.getElementById('classFilter');
+    const yearSelect = document.getElementById('yearFilter');
+    const subjectSelect = document.getElementById('subjectFilter');
+    const subjectLabel = document.getElementById('subjectLabel');
+    const noResults = document.getElementById('noResults');
+    let allToppers = [];
+
+    fetch('/api/toppers')
+      .then(res => res.json())
+      .then(data => {
+        allToppers = data;
+        const container = document.getElementById('toppersContainer');
+        container.innerHTML = '';
+
+        // Build dynamic options
+        const years = [...new Set(data.map(t => t.year))].sort((a, b) => b - a);
+        yearSelect.innerHTML = '<option value="all">All Years</option>' + 
+          years.map(y => `<option value="${y}">${y}</option>`).join('');
+
+        const subjects = [...new Set(data.map(t => t.subject).filter(Boolean))].sort();
+        subjectSelect.innerHTML = '<option value="all">All Subjects</option>' + 
+          subjects.map(s => `<option value="${s}">${s}</option>`).join('');
+
+        function render() {
+          const c = classSelect.value;
+          const y = yearSelect.value;
+          const s = subjectSelect.value;
+
+          // Toggle subject filter visibility: hidden for classes 11-12
+          const hideSubject = (c === '11' || c === '12');
+          subjectSelect.style.display = hideSubject ? 'none' : '';
+          subjectLabel.style.display = hideSubject ? 'none' : '';
+
+          const filtered = data
+            .filter(t => (c === 'all' || String(t.className || t.class) === c))
+            .filter(t => (y === 'all' || String(t.year) === y))
+            .filter(t => hideSubject ? true : (s === 'all' || String(t.subject) === s));
+
+          container.innerHTML = '';
+
+          if (filtered.length === 0) {
+            noResults.style.display = 'block';
+            return;
+          }
+
+          noResults.style.display = 'none';
+
+          filtered.forEach(t => {
+            const card = document.createElement('div');
+            card.className = 'card topper-card fade-in';
+
+            const img = document.createElement('img');
+            img.src = t.photo;
+            img.alt = t.name || 'Topper';
+            img.loading = 'lazy';
+
+            const info = document.createElement('div');
+            info.className = 'topper-info';
+
+            const h3 = document.createElement('h3');
+            h3.textContent = t.name || '';
+
+            const currentClass = String(t.className || t.class || '');
+            const isSenior = currentClass === '11' || currentClass === '12';
+
+            const pClass = document.createElement('p');
+            const strongClass = document.createElement('strong'); strongClass.textContent = 'Class: ';
+            pClass.appendChild(strongClass);
+            pClass.appendChild(document.createTextNode(currentClass));
+
+            // Details based on class group
+            if (isSenior) {
+              // Show both subject and total percentage
+              const pSub = document.createElement('p');
+              const strongSub = document.createElement('strong'); strongSub.textContent = 'Subject: ';
+              pSub.appendChild(strongSub);
+              pSub.appendChild(document.createTextNode(String(t.subject || '')));
+
+              const pPerc = document.createElement('p');
+              const strongPerc = document.createElement('strong'); strongPerc.textContent = 'Total Percentage: ';
+              pPerc.appendChild(strongPerc);
+              pPerc.appendChild(document.createTextNode(`${t.marks}%`));
+
+              info.appendChild(pSub);
+              info.appendChild(pPerc);
+            } else {
+              // 8, 9, 10: show only Percentage
+              const pPerc = document.createElement('p');
+              const strongPerc = document.createElement('strong'); strongPerc.textContent = 'Percentage: ';
+              pPerc.appendChild(strongPerc);
+              pPerc.appendChild(document.createTextNode(`${t.marks}%`));
+              info.appendChild(pPerc);
+            }
+
+            const badge = document.createElement('span');
+            badge.className = 'topper-badge';
+            badge.textContent = String(t.year || '');
+
+            info.appendChild(h3);
+            info.appendChild(pClass);
+            info.appendChild(badge);
+
+            card.appendChild(img);
+            card.appendChild(info);
+            container.appendChild(card);
+          });
+        }
+
+        classSelect.onchange = render;
+        yearSelect.onchange = render;
+        subjectSelect.onchange = render;
+        render();
+      })
+      .catch(err => {
+        console.error('Error loading toppers:', err);
+        container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--error);">Failed to load toppers. Please try again later.</div>';
+      });
+  }
+</script>
+
+</body>
+</html>
