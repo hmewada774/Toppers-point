@@ -46,6 +46,39 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    // Load map after the page has loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const mapContainer = document.getElementById('map');
+      const mapFrame = document.getElementById('mapFrame');
+      
+      // Set the map source with a small delay to ensure proper loading
+      setTimeout(() => {
+        const mapUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1837.9306821727162!2d76.72734242301023!3d23.02243391997868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397cc5dabeee5979%3A0x55c88f8f3ded517e!2sTOPPERS%20POINT%20ASHTA!5e0!3m2!1sen!2sin!4v1762243309180!5m2!1sen!2sin';
+        
+        // Set the iframe source
+        mapFrame.src = mapUrl;
+        
+        // When iframe loads, show it and hide the loading message
+        mapFrame.onload = function() {
+          mapFrame.style.display = 'block';
+          mapContainer.style.display = 'none';
+        };
+        
+        // If iframe fails to load, keep the fallback content visible
+        mapFrame.onerror = function() {
+          console.error('Failed to load Google Maps');
+          const errorMsg = mapContainer.querySelector('p:first-of-type');
+          if (errorMsg) {
+            errorMsg.textContent = 'Unable to load map. Please use the directions link below.';
+            errorMsg.style.color = '#e53e3e';
+          }
+        };
+      }, 500);
+    });
+  </script>
   <script type="module">
     import { applySEO } from '/js/seo.js';
     applySEO({
@@ -180,15 +213,30 @@
         </div>
 
         <div class="map-container">
+          <div id="map" style="width: 100%; height: 300px; border-radius: 12px; overflow: hidden; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center; padding: 1rem;">
+              <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+              <p>Loading map...</p>
+              <p style="font-size: 0.9rem; color: #666;">If the map doesn't load, please check your connection or use the directions button below.</p>
+              <a href="https://www.google.com/maps/place/TOPPERS+POINT+ASHTA/@23.022434,76.727342,17z/data=!3m1!4b1!4m6!3m5!1s0x397cc5dabeee5979:0x55c88f8f3ded517e!8m2!3d23.022434!4d76.729917!16s%2Fg%2F11tqk_3q3h?entry=ttu" 
+                 target="_blank" 
+                 class="btn" 
+                 style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-directions"></i> Get Directions
+              </a>
+            </div>
+          </div>
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1837.9306821727162!2d76.72734242301023!3d23.02243391997868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397cc5dabeee5979%3A0x55c88f8f3ded517e!2sTOPPERS%20POINT%20ASHTA!5e0!3m2!1sen!2sin!4v1762243309180!5m2!1sen!2sin" 
+            id="mapFrame"
+            src="" 
             width="100%" 
             height="300" 
-            style="border:0; border-radius: 12px;" 
+            style="border:0; border-radius: 12px; display: none;" 
             allowfullscreen="" 
-            loading="lazy" 
+            loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Toppers Point Coaching Location">
+            title="Toppers Point Location on Google Maps"
+            aria-label="Interactive map showing Toppers Point location">
           </iframe>
         </div>
       </div>

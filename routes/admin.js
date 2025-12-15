@@ -143,9 +143,21 @@ function makeVideoUpload(dir) {
 }
 const uploadVideo = makeVideoUpload(videosDir);
 
+// Helper function to handle responses
+function handleResponse(res, redirectUrl, message, isAjax = false) {
+  if (isAjax) {
+    return res.json({ success: true, message, redirect: redirectUrl });
+  }
+  return res.redirect(redirectUrl);
+}
+
 // Auth guard
 router.use((req, res, next) => {
   if (req.session && req.session.user) return next();
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  if (isAjax) {
+    return res.status(401).json({ success: false, message: 'Unauthorized', redirect: '/admin-login.html' });
+  }
   return res.redirect("/admin-login.html");
 });
 
@@ -165,7 +177,9 @@ router.get("/faculty", async (req, res) => {
 });
 
 // 🧠 Add new topper (handles photo + info)
-router.post("/add", upload.single("photo"), async (req, res) => {
+router.post("/toppers/add", upload.single("photo"), async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  
   try {
     const { name, year, subject, marks, className } = req.body;
 
@@ -181,15 +195,35 @@ router.post("/add", upload.single("photo"), async (req, res) => {
 
     await newTopper.save();
     console.log("✅ New topper added:", newTopper.name);
+    
+    if (isAjax) {
+      return res.json({ 
+        success: true, 
+        message: 'Topper added successfully!',
+        topper: newTopper
+      });
+    }
+    
     res.redirect("/admin#toppers");
   } catch (err) {
     console.error("❌ Error adding topper:", err);
+    
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error adding topper',
+        error: err.message 
+      });
+    }
+    
     res.status(500).send("Error adding topper");
   }
 });
 
 // 📸 Add event (title, year, image)
 router.post("/events/add", uploadEvent.single("image"), async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  
   try {
     const { title, year } = req.body;
     const event = new Event({
@@ -199,49 +233,147 @@ router.post("/events/add", uploadEvent.single("image"), async (req, res) => {
     });
     await event.save();
     console.log("✅ Event added:", title);
-    res.redirect("/admin");
+    
+    if (isAjax) {
+      return res.json({ 
+        success: true, 
+        message: 'Event added successfully!',
+        event: event
+      });
+    }
+    
+    res.redirect("/admin#events");
   } catch (err) {
     console.error("❌ Error adding event:", err);
+    
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error adding event',
+        error: err.message 
+      });
+    }
+    
     res.status(500).send("Error adding event");
   }
 });
 
 // 📰 Add pamphlet image for home page
-router.post("/home/pamphlets/add", uploadPamphlet.single("image"), async (req, res) => {
+router.post("/pamphlet/upload", uploadPamphlet.single("image"), async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  
   try {
-    res.redirect("/admin");
+    if (!req.file) {
+      throw new Error("No file uploaded");
+    }
+    
+    const imagePath = `/uploads/pamphlets/${req.file.filename}`;
+    
+    if (isAjax) {
+      return res.json({ 
+        success: true, 
+        message: 'Pamphlet uploaded successfully!',
+        imagePath: imagePath
+      });
+    }
+    
+    res.redirect("/admin#pamphlets");
   } catch (err) {
     console.error("❌ Error adding pamphlet:", err);
+    
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error uploading pamphlet',
+        error: err.message 
+      });
+    }
+    
     res.status(500).send("Error adding pamphlet");
   }
 });
 
 // 👩‍🏫 Add faculty with details
 router.post("/faculty/add", uploadFaculty.single("image"), async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  
   try {
     const { name, degree, subjects } = req.body;
     const f = new Faculty({
       name,
       degree,
-      subjects,
+      subjects: subjects.split(',').map(s => s.trim()),
       photo: req.file ? `/uploads/faculty/${req.file.filename}` : "",
       featuredHome: true,
     });
     await f.save();
-    res.redirect("/admin");
+    
+    if (isAjax) {
+      return res.json({ 
+        success: true, 
+        message: 'Faculty member added successfully!',
+        faculty: f
+      });
+    }
+    
+    res.redirect("/admin#faculty");
   } catch (err) {
     console.error("❌ Error adding faculty:", err);
+    
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error adding faculty member',
+        error: err.message 
+      });
+    }
+    
     res.status(500).send("Error adding faculty");
   }
 });
 
-// 👤 Add founder image (single latest used)
-router.post("/home/founder/add", uploadFounder.single("image"), async (req, res) => {
+// 👤 Add/update founder image and details
+router.post("/founder/save", uploadFounder.single("image"), async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  
   try {
+    const { name, description } = req.body;
+    const updateData = { name, description };
+    
+    if (req.file) {
+      updateData.photo = `/uploads/founder/${req.file.filename}`;
+    } else if (req.body.photo) {
+      updateData.photo = req.body.photo;
+    }
+    
+    // Find and update or create new founder
+    const founder = await Founder.findOneAndUpdate(
+      {},
+      updateData,
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+    
+    if (isAjax) {
+      return res.json({ 
+        success: true, 
+        message: 'Founder details saved successfully!',
+        founder: founder
+      });
+    }
+    
     res.redirect("/admin#founder");
   } catch (err) {
-    console.error("❌ Error adding founder image:", err);
-    res.status(500).send("Error adding founder image");
+    console.error("❌ Error saving founder details:", err);
+    
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error saving founder details',
+        error: err.message 
+      });
+    }
+    
+    res.status(500).send("Error saving founder details");
   }
 });
 
@@ -294,60 +426,123 @@ router.post("/home/faculty/unfeature/:id", async (req, res) => {
   catch(e){ console.error(e); res.status(500).send("Error"); }
 });
 
-// 🧹 Delete topper (with photo deletion)
-router.post("/delete/:id", async (req, res) => {
+// Delete topper (with photo deletion)
+router.post("/toppers/delete/:id", async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+
   try {
     const topper = await Topper.findById(req.params.id);
-    if (topper && topper.photo) {
+    if (!topper) {
+      if (isAjax) {
+        return res.status(404).json({ success: false, message: 'Topper not found' });
+      }
+      return res.status(404).send("Topper not found");
+    }
+
+    // Delete the photo file if it exists
+    if (topper.photo) {
       const photoPath = path.join(__dirname, "../public", topper.photo);
       if (fs.existsSync(photoPath)) {
-        fs.unlinkSync(photoPath); // delete image file
-        console.log("🗑️ Deleted image:", photoPath);
+        fs.unlinkSync(photoPath);
       }
     }
 
     await Topper.findByIdAndDelete(req.params.id);
-    console.log("✅ Topper deleted:", req.params.id);
-    res.redirect("/admin");
+    console.log(" Topper deleted:", req.params.id);
+
+    if (isAjax) {
+      return res.json({ 
+        success: true, 
+        message: 'Topper deleted successfully!',
+        topperId: req.params.id
+      });
+    }
+
+    res.redirect("/admin#toppers");
   } catch (err) {
-    console.error("❌ Error deleting topper:", err);
+    console.error(" Error deleting topper:", err);
+
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error deleting topper',
+        error: err.message 
+      });
+    }
+
     res.status(500).send("Error deleting topper");
   }
 });
 
-// 📦 Get all toppers (API for frontend)
+// Get all toppers (API for frontend)
 router.get("/toppers", async (req, res) => {
   try {
     const toppers = await Topper.find().sort({ year: -1 });
     res.json(toppers);
   } catch (err) {
     console.error("❌ Error fetching toppers:", err);
+    
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error fetching toppers',
+        error: err.message 
+      });
+    }
+    
     res.status(500).json({ error: "Failed to fetch toppers" });
   }
 });
 
 // 🎥 Video Management
 router.post("/videos/add", uploadVideo.single("video"), async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  
   try {
-    const { title, description, type, videoUrl } = req.body;
-    const video = new Video({
+    const { title, description, videoType, videoUrl } = req.body;
+    
+    // Handle different video types
+    let videoData = {
       title,
-      description: description || "",
-      type: type || "file",
-      videoUrl: type !== "file" ? videoUrl : "",
-      videoFile: type === "file" && req.file ? `/uploads/videos/${req.file.filename}` : "",
-      featuredHome: false
-    });
+      description,
+      type: videoType,
+      [videoType === 'file' ? 'videoFile' : 'videoUrl']: 
+        videoType === 'file' 
+          ? req.file ? `/uploads/videos/${req.file.filename}` : ''
+          : videoUrl
+    };
+    
+    const video = new Video(videoData);
     await video.save();
     console.log("✅ Video added:", title);
-    res.redirect("/admin");
+    
+    if (isAjax) {
+      return res.json({ 
+        success: true, 
+        message: 'Video added successfully!',
+        video: video
+      });
+    }
+    
+    res.redirect("/admin#videos");
   } catch (err) {
     console.error("❌ Error adding video:", err);
+    
+    if (isAjax) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error adding video',
+        error: err.message 
+      });
+    }
+    
     res.status(500).send("Error adding video");
   }
 });
 
 router.get("/videos", async (req, res) => {
+  const isAjax = req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'));
+  
   try {
     const videos = await Video.find().sort({ createdAt: -1 });
     res.json(videos);

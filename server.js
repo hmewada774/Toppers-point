@@ -75,59 +75,7 @@ app.get('/admin/csrf-token', csrfProtection, (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });
 
-// Enhanced static file serving with logging
-const staticOptions = {
-  maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0,
-  etag: true,
-  setHeaders: (res, path) => {
-    // Add cache control for CSS and JS files
-    if (path.endsWith('.css') || path.endsWith('.js')) {
-      res.set('Cache-Control', 'public, max-age=0');
-    }
-  }
-};
-
-// Serve static files with logging middleware
-app.use((req, res, next) => {
-  console.log(`Request for: ${req.originalUrl}`);
-  next();
-});
-
-app.use(express.static("public", staticOptions));
-
-// Route to test if CSS files are being served
-app.get('/test-css', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>CSS Test</title>
-      <link rel="stylesheet" href="/css/index.css">
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .test-box { 
-          width: 200px; 
-          height: 100px; 
-          background-color: #4CAF50; 
-          color: white; 
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
-          margin: 20px 0;
-          border-radius: 5px;
-        }
-      </style>
-    </head>
-    <body>
-      <h1>CSS Test Page</h1>
-      <p>If you see a green box below, basic CSS is working:</p>
-      <div class="test-box">CSS is working!</div>
-      <p>If the box above is not green, there might be an issue with the CSS file loading.</p>
-      <p>Try opening the CSS file directly: <a href="/css/index.css" target="_blank">/css/index.css</a></p>
-    </body>
-    </html>
-  `);
-});
+app.use(express.static("public", { maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0, etag: true }));
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))

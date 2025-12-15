@@ -7,25 +7,6 @@ if (navbar) {
   });
 }
 
-// Scroll to top button
-const scrollBtn = document.createElement('button');
-scrollBtn.id = 'scrollTopBtn';
-scrollBtn.innerHTML = '&uarr;';
-scrollBtn.setAttribute('aria-label', 'Scroll to top');
-document.body.appendChild(scrollBtn);
-
-// Show/hide scroll button and handle click
-window.addEventListener('scroll', () => {
-  scrollBtn.classList.toggle('show', window.scrollY > 400);
-});
-
-scrollBtn.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-});
-
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
@@ -242,9 +223,42 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(() => {});
 });
 
+// Counter animation function
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat-number');
+  const speed = 200; // The lower the faster
+  
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    const count = +counter.innerText.replace('+', '');
+    const increment = target / speed;
+    
+    if (count < target) {
+      counter.innerText = Math.ceil(count + increment) + '+';
+      setTimeout(animateCounters, 10);
+    } else {
+      counter.innerText = target.toLocaleString() + '+';
+    }
+  });
+}
+
 // Home page loaders
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname === '/' || window.location.pathname.endsWith('/index.html')) {
+    // Initialize counter animation when stats section is in view
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      observer.observe(statsSection);
+    }
     // Pamphlets with zoom functionality
     fetch('/api/home/pamphlets').then(r=>r.json()).then(items => {
       const wrap = document.getElementById('homePamphlets'); 
@@ -336,65 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }).catch(()=>{});
 
-    // Animate statistics counter
-function animateStats() {
-  const statNumbers = document.querySelectorAll('.stat-number');
-  
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const element = entry.target;
-        const target = parseInt(element.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const step = target / (duration / 16); // 60fps
-        let current = 0;
-        
-        const updateCounter = () => {
-          current += step;
-          if (current < target) {
-            element.textContent = Math.ceil(current);
-            requestAnimationFrame(updateCounter);
-          } else {
-            element.textContent = target;
-          }
-        };
-        
-        updateCounter();
-        element.classList.add('animate');
-        observer.unobserve(element);
-      }
-    });
-  }, { threshold: 0.5 });
-  
-  statNumbers.forEach(stat => {
-    observer.observe(stat);
-  });
-}
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize stats counter
-  animateStats();
-  
-  // Set up intersection observer for fade-in animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-  
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
-  
-  // Observe all sections with fade-in class
-  document.querySelectorAll('section.fade-in, .fade-in').forEach(element => {
-    fadeObserver.observe(element);
-  });
-});
 
 // Toppers preview (admin-featured only)
     fetch('/api/home/toppers').then(r=>r.json()).then(data => {
@@ -611,14 +567,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return data.map(e=>({ src: e.image, title: e.title, caption: `${e.title} • ${e.year}` })).slice(0,50);
   }, 'rtl');
 
-  // Scroll-to-top button
-  const stBtn = document.getElementById('scrollTopBtn');
-  if (stBtn){
-    const onScroll = () => { if (window.scrollY > 400) stBtn.classList.add('show'); else stBtn.classList.remove('show'); };
-    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-    stBtn.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
-  }
-
   // Populate Founder section dynamically if present
   (async function(){
     try{
@@ -646,13 +594,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Click-to-fullsize photo overlay (works for gallery, cards, carousels)
   (function(){
+    // Store scroll position and disable body scroll when overlay is open
+    let scrollPosition = 0;
+    let isInitialized = false;
+    
+    // Initialize zoom functionality
+    function initZoom() {
+      if (isInitialized) return;
+      isInitialized = true;
+      
+      // Add mutation observer to handle dynamically loaded content
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.addedNodes.length) {
+            // Small delay to ensure images are loaded
+            setTimeout(initImageZoom, 100);
+          }
+        });
+      });
+
+      // Start observing the document
+      observer.observe(document.body, { 
+        childList: true, 
+        subtree: true 
+      });
+      
+      // Initial setup
+      initImageZoom();
+    }
+    
+    // Initialize zoom on DOM content loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initZoom);
+    } else {
+      initZoom();
+    }
+    
+    // Initialize zoom for images
+    function initImageZoom() {
+      // Get all images that should have zoom functionality
+      const zoomableImages = document.querySelectorAll('img:not(.no-zoom):not(#studentsCarousel img):not(#eventsCarousel img):not(#featuredCards img):not(#previewToppers img):not(.toppers-section img)');
+      
+      zoomableImages.forEach(img => {
+        // Remove any existing click handlers to prevent duplicates
+        img.removeEventListener('click', handleImageClick);
+        
+        // Add click handler for zoom
+        img.addEventListener('click', handleImageClick);
+        
+        // Add cursor pointer to indicate zoomable
+        img.style.cursor = 'zoom-in';
+      });
+    }
+    
+    // Handle image click for zoom
+    function handleImageClick(e) {
+      // Prevent default behavior
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Store the current scroll position
+      const currentScrollY = window.scrollY;
+      
+      // Open the overlay
+      openOverlayFrom(this);
+      
+      // Store the scroll position for restoration
+      originalScrollY = currentScrollY;
+    }
+
+    // Only enable zoom for specific images that are not in excluded sections
     const SEL = [
-      '.g-item img',
-      '.card img',
-      '.topper-card img',
+      '.g-item img:not(#previewToppers img)',
+      '.card img:not(#featuredCards img, .toppers-section img)',
+      '.topper-card img:not(#previewToppers img)',
       '.event-card img',
-      '.hscroll .item img'
-    ].join(',');
+      '.hscroll .item img:not(#studentsCarousel img):not(#eventsCarousel img)'
+    ].filter(Boolean).join(',');
 
     // Create overlay root once
     let overlay = document.querySelector('.photo-overlay');
@@ -673,15 +691,44 @@ document.addEventListener('DOMContentLoaded', () => {
     let scrollHandler = null;
     let prevFocus = null;
 
-    function closeOverlay(){
+    function closeOverlay() {
       if (!open) return;
-      overlay.classList.remove('show');
       open = false;
-      if (scrollHandler){ window.removeEventListener('scroll', scrollHandler, { capture:false }); scrollHandler = null; }
-      document.removeEventListener('keydown', onKey);
-      document.removeEventListener('keydown', onTrapTab, true);
-      // restore focus
-      try{ if (prevFocus && typeof prevFocus.focus === 'function') prevFocus.focus(); }catch(_){ }
+      
+      // Get the original scroll position
+      const scrollY = originalScrollY || Math.abs(parseInt(document.body.style.top || '0'));
+      
+      // Remove the overlay
+      overlay.classList.remove('show');
+      overlay.removeAttribute('aria-hidden');
+      
+      // Restore body styles
+      const restoreStyles = () => {
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+        document.documentElement.style.scrollBehavior = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+      
+      // Restore focus and remove event listeners
+      if (prevFocus) prevFocus.focus();
+      window.removeEventListener('keydown', onKey);
+      overlay.removeEventListener('click', closeOverlay);
+      overlay.removeEventListener('keydown', onTrapTab);
+      
+      // Small delay to ensure smooth transition
+      requestAnimationFrame(() => {
+        restoreStyles();
+        // Force reflow
+        void document.body.offsetHeight;
+      });
     }
 
     function onKey(e){ if (e.key === 'Escape') closeOverlay(); }
@@ -694,9 +741,32 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.focus({ preventScroll: true });
     }
 
-    function openOverlayFrom(imgEl){
-      const src = imgEl.src; const alt = imgEl.alt || '';
+    function openOverlayFrom(imgEl) {
+      // Prevent default to avoid any link following
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      // Get the current scroll position
+      const currentScrollY = originalScrollY || window.scrollY;
+      
+      // Disable body scroll while keeping the current scroll position
+      document.documentElement.style.scrollBehavior = 'auto';
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${currentScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+      
+      const src = imgEl.src; 
+      const alt = imgEl.alt || '';
       const rect = imgEl.getBoundingClientRect();
+      
+      // Ensure we maintain the scroll position
+      window.scrollTo(0, currentScrollY);
       // create a clone for zoom animation
       const clone = imgEl.cloneNode(false);
       clone.style.position = 'fixed';

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https: data:; img-src 'self' data: https:; connect-src 'self'; media-src 'self'; object-src 'none'; child-src 'self';">
   <title>Toppers Point Coaching — Excellence in Education | Ashta, MP</title>
   <meta name="description" content="Toppers Point Coaching - Premier coaching institute in Ashta, MP. Expert guidance for Classes 9-12 in Science, Commerce & Agriculture. Join us to achieve excellence!" />
@@ -50,6 +50,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Page-specific CSS -->
   <link rel="stylesheet" href="/css/index.css">
@@ -68,8 +69,8 @@
   </script>
 </head>
 <body>
-  <!-- Header with inline styles for reliability -->
-  <header class="navbar" id="navbar" style="position: fixed; top: 0; left: 0; right: 0; background: white; z-index: 1000; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+  <!-- Header -->
+  <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="/" class="brand-link" aria-label="Toppers Point Home">
         <img src="/images/logo.png" alt="Toppers Point Coaching logo" class="logo" loading="lazy">
@@ -138,28 +139,29 @@
   </section>
 
   <!-- Statistics Section -->
-  <section class="stats-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span class="stat-number" data-target="500">0</span>
-          <span class="stat-label">Students Enrolled</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="20">0</span>
-          <span class="stat-label">Expert Faculty</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="95">0</span>
-          <span class="stat-label">Success Rate %</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="8">0</span>
-          <span class="stat-label">Years Experience</span>
-        </div>
+<!-- Statistics Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-target="500">0+</span>
+        <span class="stat-label">Students Enrolled</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="20">0+</span>
+        <span class="stat-label">Expert Faculty</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="95">0+</span>
+        <span class="stat-label">Success Rate %</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="8">0+</span>
+        <span class="stat-label">Years Experience</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Features Section -->
   <section class="features-section">
@@ -328,10 +330,6 @@
       header.style.top = '0';
       header.style.left = '0';
       header.style.right = '0';
-      header.style.background = 'white';
-      header.style.zIndex = '1000';
-      header.style.padding = '1rem 0';
-      header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     }
 
     // Toggle mobile menu
@@ -396,102 +394,10 @@
         }, 250);
       });
     }
-    
-    // Set current year
-    const yearElement = document.getElementById('year');
-    if (yearElement) {
-      yearElement.textContent = new Date().getFullYear();
-    }
   });
 </script>
 <script src="/js/main.js" type="module"></script>
 <script src="/js/featured.js"></script>
 
-
-
-  <!-- Mobile Menu Toggle Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Get menu elements
-      const menuToggle = document.getElementById('menuToggle');
-      const mainNav = document.getElementById('mainNav');
-      const header = document.getElementById('navbar');
-
-      // Apply header styles
-      if (header) {
-        header.style.position = 'fixed';
-        header.style.top = '0';
-        header.style.left = '0';
-        header.style.right = '0';
-        header.style.background = 'white';
-        header.style.zIndex = '1000';
-        header.style.padding = '1rem 0';
-        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-      }
-
-      // Toggle mobile menu
-      function toggleMenu() {
-        if (!menuToggle || !mainNav) return;
-        
-        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-        menuToggle.setAttribute('aria-expanded', !isExpanded);
-        mainNav.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-        document.body.style.overflow = isExpanded ? '' : 'hidden';
-      }
-
-      // Close menu when clicking outside
-      function closeMenu(e) {
-        if (!menuToggle || !mainNav) return;
-        
-        if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.classList.remove('active');
-          mainNav.classList.remove('active');
-          document.body.style.overflow = '';
-        }
-      }
-
-      // Initialize menu toggle
-      if (menuToggle && mainNav) {
-        // Set initial state
-        menuToggle.setAttribute('aria-expanded', 'false');
-        
-        // Toggle menu on button click
-        menuToggle.addEventListener('click', function(e) {
-          e.stopPropagation();
-          toggleMenu();
-        });
-        
-        // Close menu when clicking on a link
-        mainNav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            menuToggle.setAttribute('aria-expanded', 'false');
-            menuToggle.classList.remove('active');
-            mainNav.classList.remove('active');
-            document.body.style.overflow = '';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', closeMenu);
-        
-        // Handle window resize
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(function() {
-            if (window.innerWidth > 768) {
-              // Reset mobile menu on desktop
-              menuToggle.setAttribute('aria-expanded', 'false');
-              menuToggle.classList.remove('active');
-              mainNav.classList.remove('active');
-              document.body.style.overflow = '';
-            }
-          }, 250);
-        });
-      }
-    });
-  </script>
 </body>
 </html>

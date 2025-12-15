@@ -36,10 +36,6 @@ if (!fs.existsSync(uploadsPath)) {
   console.log("📁 Created uploads folder at:", uploadsPath);
 }
 
-// 🧩 View engine setup
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
 // 🧩 Middlewares
 // CORS: allow comma-separated list in CORS_ORIGINS, fallback to localhost + production domain
 const defaultOrigins = [
@@ -57,52 +53,7 @@ const envOrigins = (process.env.CORS_ORIGINS || "")
   .filter(Boolean);
 const allowedOrigins = envOrigins.length ? envOrigins : defaultOrigins;
 app.use(cors({ origin: allowedOrigins, credentials: true }));
-// Security headers with CSP for Font Awesome and other resources
-app.use(helmet({
-  crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: {
-    useDefaults: true,
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "https://cdnjs.cloudflare.com",
-        "https://challenges.cloudflare.com"
-      ],
-      styleSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://cdnjs.cloudflare.com",
-        "https://fonts.googleapis.com",
-        "https://fonts.gstatic.com"
-      ],
-      fontSrc: [
-        "'self'",
-        "data:",
-        "https:",
-        "https://cdnjs.cloudflare.com",
-        "https://fonts.gstatic.com",
-        "https://fonts.googleapis.com"
-      ],
-      imgSrc: [
-        "'self'",
-        "data:",
-        "https:",
-        "https://*.cloudflare.com",
-        "https://*.googleapis.com",
-        "https://*.gstatic.com"
-      ],
-      connectSrc: [
-        "'self'",
-        "https://*.cloudflare.com",
-        "https://*.googleapis.com",
-        "https://*.gstatic.com"
-      ]
-    }
-  }
-}));
+app.use(helmet({ crossOriginEmbedderPolicy: false, contentSecurityPolicy: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -122,7 +73,7 @@ app.use(
 );
 
 // Protect direct access to admin.html before static middleware
-app.get("/admin.html", (req, res) => {
+app.get(["/admin.html", "/admin"], (req, res) => {
   if (req.session && req.session.user) {
     return res.sendFile(path.join(__dirname, "public", "admin.html"));
   }
@@ -151,11 +102,6 @@ mongoose
 app.use("/api/toppers", topperRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/contact", contactRoutes);
-// Login page route
-app.get('/login', (req, res) => {
-  res.render('login');
-});
-
 app.use("/api/auth", authRoutes);
 app.use("/api/home", homeRoutes);
 app.use("/admin", adminRoutes);
