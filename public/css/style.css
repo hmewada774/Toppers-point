@@ -321,30 +321,65 @@ img {
   .menu-toggle {
     display: flex;
     z-index: 1002;
+    margin-left: 0.5rem;
   }
   
   .nav-container nav {
     position: fixed;
     top: 0;
-    right: -300px;
-    width: 300px;
+    right: -280px; /* Start off-screen to the right */
+    width: 280px;
+    max-width: 100%;
     height: 100vh;
     background: white;
     flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-    transition: right 0.3s ease;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    padding: 5rem 1.5rem 2rem;
+    transition: right 0.3s ease, opacity 0.3s ease;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
+    z-index: 1001;
+    opacity: 0;
+    overflow-y: auto;
   }
   
   .nav-container nav.active {
     right: 0;
+    opacity: 1;
   }
   
   .nav-container nav a {
     color: var(--text-primary);
-    font-size: 1.1rem;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s ease;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .nav-container nav a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Menu overlay */
+  .menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+  }
+  
+  .menu-overlay.active {
+    display: block;
+    opacity: 1;
   }
 }
 /* Programs Showcase */

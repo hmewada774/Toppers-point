@@ -2584,14 +2584,31 @@ main {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   #homeEvents {
     grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 0 1rem;
   }
   
   .event-card {
-    max-width: 400px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0 0 2rem;
+    width: 100%;
+  }
+  
+  .event-image {
+    display: flex;
+    justify-content: center;
+    background: #f8fafc;
+  }
+  
+  .event-image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 280px;
+    object-fit: contain;
+    padding: 1.5rem;
   }
 }
 
