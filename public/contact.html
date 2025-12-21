@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Contact Toppers Point Coaching in Ashta, MP. Get in touch for admissions, queries, or more information about our courses.">
+  <meta name="description"
+    content="Contact Toppers Point Coaching in Ashta, MP. Get in touch for admissions, queries, or more information about our courses.">
   <title>Contact Us - Toppers Point Coaching</title>
+  <link rel="stylesheet" href="/css/header-style.css">
+  <link rel="stylesheet" href="/css/footer-style.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="canonical" href="https://topperspoint.in/contact.html">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact Us - Toppers Point Coaching | Ashta, MP">
-  <meta property="og:description" content="Contact Toppers Point Coaching in Ashta, MP for admissions, queries, or more information.">
+  <meta property="og:description"
+    content="Contact Toppers Point Coaching in Ashta, MP for admissions, queries, or more information.">
   <meta property="og:url" content="https://topperspoint.in/contact.html">
   <meta property="og:image" content="https://topperspoint.in/images/logo.png">
   <!-- Twitter Cards -->
@@ -44,31 +49,35 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script>
     // Load map after the page has loaded
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const mapContainer = document.getElementById('map');
       const mapFrame = document.getElementById('mapFrame');
-      
+
       // Set the map source with a small delay to ensure proper loading
       setTimeout(() => {
         const mapUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1837.9306821727162!2d76.72734242301023!3d23.02243391997868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397cc5dabeee5979%3A0x55c88f8f3ded517e!2sTOPPERS%20POINT%20ASHTA!5e0!3m2!1sen!2sin!4v1762243309180!5m2!1sen!2sin';
-        
+
         // Set the iframe source
         mapFrame.src = mapUrl;
-        
+
         // When iframe loads, show it and hide the loading message
-        mapFrame.onload = function() {
+        mapFrame.onload = function () {
           mapFrame.style.display = 'block';
           mapContainer.style.display = 'none';
         };
-        
+
         // If iframe fails to load, keep the fallback content visible
-        mapFrame.onerror = function() {
+        mapFrame.onerror = function () {
           console.error('Failed to load Google Maps');
           const errorMsg = mapContainer.querySelector('p:first-of-type');
           if (errorMsg) {
@@ -88,292 +97,297 @@
     });
   </script>
 </head>
+
 <body>
 
-<header class="navbar" id="navbar">
-  <div class="container nav-container">
-    <img src="/images/logo.png" alt="Toppers Point Logo" class="logo">
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <nav id="mainNav">
-      <a href="/">Home</a>
-      <a href="/toppers.html">Toppers</a>
-      <a href="/courses.html">Courses</a>
-      <a href="/events.html">Events</a>
-      <a href="/contact.html" class="active">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<section class="contact-section">
-  <div class="container">
-    <div class="section-title">
-      <h2>Get In Touch</h2>
-      <p>Have questions? We'd love to hear from you. Visit us for enrollment or send us a message.</p>
-      <div style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%); color: white; padding: 1.5rem; border-radius: 12px; margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-        <h3 style="color: white; margin-bottom: 1rem;">
-          <i class="fas fa-handshake" style="margin-right: 0.5rem;"></i>
-          Enrollment Process
-        </h3>
-        <p style="color: rgba(255, 255, 255, 0.95); margin-bottom: 1rem;">
-          We accept enrollments through <strong>offline visits only</strong>. Here's what you need to do:
-        </p>
-        <ol style="text-align: left; max-width: 600px; margin: 0 auto; color: rgba(255, 255, 255, 0.95);">
-          <li>Visit our coaching center at Toppers Point Bajarnag colony near sony ladge Ashta (M.P)</li>
-          <li>Meet with our faculty and see our facilities</li>
-          <li>Choose your course and batch timing</li>
-          <li>Complete enrollment with required documents</li>
-        </ol>
-        <p style="color: rgba(255, 255, 255, 0.95); margin-top: 1rem; margin-bottom: 0;">
-          <strong>Office Hours:</strong> 7:00 AM - 8:00 PM everyday
-        </p>
-      </div>
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="brand-link" aria-label="Toppers Point Home">
+        <img src="/images/logo.png" alt="Toppers Point Logo" class="logo">
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="mainNav" class="main-nav" aria-label="Main navigation">
+        <a href="/" data-route="/">Home</a>
+        <a href="/toppers.html" data-route="/toppers.html">Toppers</a>
+        <a href="/courses.html" data-route="/courses.html">Courses</a>
+        <a href="/events.html" data-route="/events.html">Events</a>
+        <a href="/contact.html" class="active" data-route="/contact.html">Contact</a>
+      </nav>
     </div>
-    
-    <div class="contact-grid">
-      <div class="contact-form">
-        <h3>Send Us a Message</h3>
-        <form id="contactForm">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <input type="tel" name="phone" placeholder="Your Phone (Optional)">
-          <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-          <button type="submit" class="btn btn-primary">
-            <span id="submitText">Send Message</span>
-            <span id="submitLoader" class="loading" style="display: none;">
-              <span class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></span>
-            </span>
-          </button>
-          <div id="formMessage" style="margin-top: 1rem; display: none;"></div>
-        </form>
+  </header>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Get In Touch</h2>
+        <p>Have questions? We'd love to hear from you. Visit us for enrollment or send us a message.</p>
+        <div
+          style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%); color: white; padding: 1.5rem; border-radius: 12px; margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+          <h3 style="color: white; margin-bottom: 1rem;">
+            <i class="fas fa-handshake" style="margin-right: 0.5rem;"></i>
+            Enrollment Process
+          </h3>
+          <p style="color: rgba(255, 255, 255, 0.95); margin-bottom: 1rem;">
+            We accept enrollments through <strong>offline visits only</strong>. Here's what you need to do:
+          </p>
+          <ol style="text-align: left; max-width: 600px; margin: 0 auto; color: rgba(255, 255, 255, 0.95);">
+            <li>Visit our coaching center at Toppers Point Bajarnag colony near sony ladge Ashta (M.P)</li>
+            <li>Meet with our faculty and see our facilities</li>
+            <li>Choose your course and batch timing</li>
+            <li>Complete enrollment with required documents</li>
+          </ol>
+          <p style="color: rgba(255, 255, 255, 0.95); margin-top: 1rem; margin-bottom: 0;">
+            <strong>Office Hours:</strong> 7:00 AM - 8:00 PM everyday
+          </p>
+        </div>
       </div>
 
-      <div class="contact-info">
-        <div class="contact-item">
-          <div class="contact-icon">
-            <i class="fas fa-map-marker-alt"></i>
-          </div>
-          <div class="contact-details">
-            <h4>Address</h4>
-            <p>Toppers Point Bajarnag colony near sony ladge Ashta (M.P)</p>
-          </div>
+      <div class="contact-grid">
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+          <form id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="tel" name="phone" placeholder="Your Phone (Optional)">
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn btn-primary">
+              <span id="submitText">Send Message</span>
+              <span id="submitLoader" class="loading" style="display: none;">
+                <span class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></span>
+              </span>
+            </button>
+            <div id="formMessage" style="margin-top: 1rem; display: none;"></div>
+          </form>
         </div>
 
-        <div class="contact-item">
-          <div class="contact-icon">
-            <i class="fas fa-phone"></i>
-          </div>
-          <div class="contact-details">
-            <h4>Phone</h4>
-            <p><a href="tel:+917869703381" style="color: var(--primary);">+91 7869703381</a></p>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-icon">
-            <i class="fas fa-envelope"></i>
-          </div>
-          <div class="contact-details">
-            <h4>Email</h4>
-            <p><a href="mailto:topperspoint@gmail.com" style="color: var(--primary);">topperspoint@gmail.com</a></p>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-icon">
-            <i class="fas fa-clock"></i>
-          </div>
-          <div class="contact-details">
-            <h4>Office Hours</h4>
-            <p>7:00 AM - 8:00 PM everyday</p>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-icon">
-            <i class="fas fa-share-alt"></i>
-          </div>
-          <div class="contact-details">
-            <h4>Follow Us</h4>
-            <div class="social-icons">
-              <a href="https://www.instagram.com/toppers_point_coaching_ashta/?__pwa=1#" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a href="https://wa.me/917869703381" target="_blank" rel="noopener" class="social-icon" aria-label="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-              </a>
-              <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-              </a>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Address</h4>
+              <p>Toppers Point Bajarnag colony near sony ladge Ashta (M.P)</p>
             </div>
           </div>
-        </div>
 
-        <div class="map-container">
-          <div id="map" style="width: 100%; height: 300px; border-radius: 12px; overflow: hidden; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
-            <div style="text-align: center; padding: 1rem;">
-              <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-              <p>Loading map...</p>
-              <p style="font-size: 0.9rem; color: #666;">If the map doesn't load, please check your connection or use the directions button below.</p>
-              <a href="https://www.google.com/maps/place/TOPPERS+POINT+ASHTA/@23.022434,76.727342,17z/data=!3m1!4b1!4m6!3m5!1s0x397cc5dabeee5979:0x55c88f8f3ded517e!8m2!3d23.022434!4d76.729917!16s%2Fg%2F11tqk_3q3h?entry=ttu" 
-                 target="_blank" 
-                 class="btn" 
-                 style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-directions"></i> Get Directions
-              </a>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Phone</h4>
+              <p><a href="tel:+917869703381" style="color: var(--primary);">+91 7869703381</a></p>
             </div>
           </div>
-          <iframe 
-            id="mapFrame"
-            src="" 
-            width="100%" 
-            height="300" 
-            style="border:0; border-radius: 12px; display: none;" 
-            allowfullscreen="" 
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Toppers Point Location on Google Maps"
-            aria-label="Interactive map showing Toppers Point location">
-          </iframe>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Email</h4>
+              <p><a href="mailto:topperspoint@gmail.com" style="color: var(--primary);">topperspoint@gmail.com</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Office Hours</h4>
+              <p>7:00 AM - 8:00 PM everyday</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-share-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Follow Us</h4>
+              <div class="social-icons">
+                <a href="https://www.instagram.com/toppers_point_coaching_ashta/?__pwa=1#" target="_blank"
+                  rel="noopener" class="social-icon" aria-label="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/917869703381" target="_blank" rel="noopener" class="social-icon"
+                  aria-label="WhatsApp">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener" class="social-icon"
+                  aria-label="Facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-container">
+            <div id="map"
+              style="width: 100%; height: 300px; border-radius: 12px; overflow: hidden; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+              <div style="text-align: center; padding: 1rem;">
+                <i class="fas fa-map-marker-alt"
+                  style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <p>Loading map...</p>
+                <p style="font-size: 0.9rem; color: #666;">If the map doesn't load, please check your connection or use
+                  the directions button below.</p>
+                <a href="https://www.google.com/maps/place/TOPPERS+POINT+ASHTA/@23.022434,76.727342,17z/data=!3m1!4b1!4m6!3m5!1s0x397cc5dabeee5979:0x55c88f8f3ded517e!8m2!3d23.022434!4d76.729917!16s%2Fg%2F11tqk_3q3h?entry=ttu"
+                  target="_blank" class="btn"
+                  style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                  <i class="fas fa-directions"></i> Get Directions
+                </a>
+              </div>
+            </div>
+            <iframe id="mapFrame" src="" width="100%" height="300" style="border:0; border-radius: 12px; display: none;"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="Toppers Point Location on Google Maps" aria-label="Interactive map showing Toppers Point location">
+            </iframe>
+          </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p><strong>Visit:</strong> Toppers Point Bajarnag colony near Sony Lodge, Ashta (M.P)</p>
+      <p><strong>Phone:</strong> <a href="tel:+917869703381">+91 7869703381</a></p>
+      <p><strong>Email:</strong> <a href="mailto:topperspoint@gmail.com">topperspoint@gmail.com</a></p>
+      <div class="social">
+        <a href="https://www.instagram.com/toppers_point_coaching_ashta/" target="_blank" rel="noopener"
+          aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me/917869703381" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+      <hr>
+      <p class="designer-credit">
+        This website is designed by <strong>Hariom Mewada</strong> —
+        <a href="https://instagram.com/_wishmaster_hariom_" target="_blank" rel="noopener">@_wishmaster_hariom_</a>
+      </p>
+      <p>&copy; <span id="year"></span> Toppers Point Coaching. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" title="Scroll to top">&uarr;</button>
+
+  <!-- Quick Contact Buttons -->
+  <div class="quick-contact">
+    <a href="https://wa.me/917869703381" class="quick-contact-btn whatsapp" target="_blank" rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+      <span class="tooltip">Chat on WhatsApp</span>
+    </a>
+    <a href="tel:917869703381" class="quick-contact-btn phone" aria-label="Call Us">
+      <i class="fas fa-phone"></i>
+      <span class="tooltip">Call Us</span>
+    </a>
   </div>
-</section>
 
-<footer class="footer">
-  <div class="footer-content">
-    <p><strong>Visit:</strong> Toppers Point Bajarnag colony near sony ladge Ashta (M.P)</p>
-    <p><strong>Phone:</strong> +91 7869703381</p>
-    <p><strong>Email:</strong> <a href="mailto:topperspoint@gmail.com">topperspoint@gmail.com</a></p>
-    <p>
-      <a href="https://www.instagram.com/toppers_point_coaching_ashta/?__pwa=1#" target="_blank" rel="noopener">Instagram</a> |
-      <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener">Facebook</a> |
-      <a href="https://wa.me/917869703381" target="_blank" rel="noopener">WhatsApp</a> |
-      <a href="mailto:topperspoint@gmail.com">Gmail</a>
-    </p>
-    <p>© <span id="year"></span> Toppers Point Coaching. All Rights Reserved.</p>
-  </div>
-</footer>
+  <script src="/js/main.js"></script>
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
 
-<!-- Scroll to Top Button -->
-<button class="scroll-top" title="Scroll to top">&uarr;</button>
-
-<!-- Quick Contact Buttons -->
-<div class="quick-contact">
-  <a href="https://wa.me/917869703381" class="quick-contact-btn whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-    <span class="tooltip">Chat on WhatsApp</span>
-  </a>
-  <a href="tel:917869703381" class="quick-contact-btn phone" aria-label="Call Us">
-    <i class="fas fa-phone"></i>
-    <span class="tooltip">Call Us</span>
-  </a>
-</div>
-
-<script src="/js/main.js"></script>
-<script>
-  document.getElementById('year').innerText = new Date().getFullYear();
-
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
-  
-  if (menuToggle && mainNav) {
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      mainNav.classList.toggle('active');
-    });
-
-    mainNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        mainNav.classList.remove('active');
-      });
-    });
-  }
-
-  // Show/hide scroll to top button
-  const scrollTopBtn = document.querySelector('.scroll-top');
-  
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      scrollTopBtn.classList.add('show');
-    } else {
-      scrollTopBtn.classList.remove('show');
+    // Mobile menu toggle logic removed (handled by main.js)
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    if (menuToggle && mainNav && !window.location.pathname.endsWith('/')) {
+      // Fallback for pages where main.js might not fully take over or if main.js is slow
+      // But actually main.js REPLACES the header, so this listener would be lost anyway.
+      // So it is safe to remove it.
     }
-  });
 
-  // Scroll to top on click
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
+    // Show/hide scroll to top button
+    const scrollTopBtn = document.querySelector('.scroll-top');
 
-  // Contact form submission
-  const contactForm = document.getElementById('contactForm');
-  const submitText = document.getElementById('submitText');
-  const submitLoader = document.getElementById('submitLoader');
-  const formMessage = document.getElementById('formMessage');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = {
-        name: contactForm.name.value,
-        email: contactForm.email.value,
-        phone: contactForm.phone.value || '',
-        message: contactForm.message.value
-      };
-
-      // Show loading state
-      submitText.style.display = 'none';
-      submitLoader.style.display = 'inline-block';
-      contactForm.querySelector('button[type="submit"]').disabled = true;
-
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          formMessage.style.display = 'block';
-          formMessage.style.color = 'var(--success)';
-          formMessage.style.background = 'rgba(16, 185, 129, 0.1)';
-          formMessage.style.padding = '1rem';
-          formMessage.style.borderRadius = '8px';
-          formMessage.textContent = data.message || 'Thank you! Your message has been sent successfully. We will get back to you soon.';
-          contactForm.reset();
-        } else {
-          throw new Error(data.message || 'Failed to send message');
-        }
-      } catch (error) {
-        formMessage.style.display = 'block';
-        formMessage.style.color = 'var(--error)';
-        formMessage.style.background = 'rgba(239, 68, 68, 0.1)';
-        formMessage.style.padding = '1rem';
-        formMessage.style.borderRadius = '8px';
-        formMessage.textContent = error.message || 'Something went wrong. Please try again later.';
-      } finally {
-        submitText.style.display = 'inline';
-        submitLoader.style.display = 'none';
-        contactForm.querySelector('button[type="submit"]').disabled = false;
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
       }
     });
-  }
-</script>
+
+    // Scroll to top on click
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Contact form submission
+    const contactForm = document.getElementById('contactForm');
+    const submitText = document.getElementById('submitText');
+    const submitLoader = document.getElementById('submitLoader');
+    const formMessage = document.getElementById('formMessage');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = {
+          name: contactForm.name.value,
+          email: contactForm.email.value,
+          phone: contactForm.phone.value || '',
+          message: contactForm.message.value
+        };
+
+        // Show loading state
+        submitText.style.display = 'none';
+        submitLoader.style.display = 'inline-block';
+        contactForm.querySelector('button[type="submit"]').disabled = true;
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            formMessage.style.display = 'block';
+            formMessage.style.color = 'var(--success)';
+            formMessage.style.background = 'rgba(16, 185, 129, 0.1)';
+            formMessage.style.padding = '1rem';
+            formMessage.style.borderRadius = '8px';
+            formMessage.textContent = data.message || 'Thank you! Your message has been sent successfully. We will get back to you soon.';
+            contactForm.reset();
+          } else {
+            throw new Error(data.message || 'Failed to send message');
+          }
+        } catch (error) {
+          formMessage.style.display = 'block';
+          formMessage.style.color = 'var(--error)';
+          formMessage.style.background = 'rgba(239, 68, 68, 0.1)';
+          formMessage.style.padding = '1rem';
+          formMessage.style.borderRadius = '8px';
+          formMessage.textContent = error.message || 'Something went wrong. Please try again later.';
+        } finally {
+          submitText.style.display = 'inline';
+          submitLoader.style.display = 'none';
+          contactForm.querySelector('button[type="submit"]').disabled = false;
+        }
+      });
+    }
+  </script>
 
 </body>
+
 </html>

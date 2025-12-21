@@ -8,6 +8,7 @@ import fs from "fs";
 import session from "express-session";
 import cors from "cors";
 import helmet from "helmet";
+import compression from "compression";
 
 // Import routes
 import adminRoutes from "./routes/admin.js";
@@ -56,6 +57,7 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(helmet({ crossOriginEmbedderPolicy: false, contentSecurityPolicy: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(compression());
 
 // 🧱 Session Setup (must be before protected routes and before serving admin.html)
 app.use(

@@ -1,4 +1,7 @@
-/* Header Styles to match courses page */
+/* ============================================
+   NAVIGATION (Unified Header Styles)
+   Matches design from Courses Page
+   ============================================ */
 .navbar {
   position: fixed;
   top: 0;
@@ -42,11 +45,11 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
 .main-nav a {
-  color: var(--text-primary);
+  color: var(--text-primary, #1f2937);
+  /* Fallback to dark gray if var not set */
   font-weight: 500;
   padding: 0.5rem 0.75rem;
   position: relative;
@@ -54,6 +57,7 @@
   font-size: 0.95rem;
   white-space: nowrap;
   text-decoration: none;
+  font-family: 'Inter', sans-serif;
 }
 
 .main-nav a::after {
@@ -64,13 +68,14 @@
   transform: translateX(-50%) scaleX(0);
   width: 80%;
   height: 2px;
-  background: var(--secondary);
+  background: var(--secondary, #f97316);
+  /* Fallback orange */
   transition: transform 0.3s ease;
 }
 
 .main-nav a:hover,
 .main-nav a.active {
-  color: var(--secondary);
+  color: var(--secondary, #f97316);
 }
 
 .main-nav a:hover::after,
@@ -78,105 +83,74 @@
   transform: translateX(-50%) scaleX(1);
 }
 
-/* Hide menu toggle on home page */
-.home-page .menu-toggle {
-  display: none !important;
-}
-
 /* Mobile Menu Toggle */
 .menu-toggle {
-  display: none; /* Hidden by default, shown in media query */
+  display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 24px;
-  height: 20px;
+  width: 30px;
+  height: 21px;
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 0;
   z-index: 1001;
-  position: relative;
-  margin-left: 0.5rem;
-  transition: transform 0.2s ease;
-}
-
-.menu-toggle:hover {
-  transform: scale(1.05);
-}
-
-.menu-toggle:active {
-  transform: scale(0.98);
 }
 
 .menu-toggle span {
   display: block;
-  height: 2px;
+  height: 3px;
   width: 100%;
-  background: var(--primary);
-  border-radius: 2px;
-  transition: all 0.2s ease;
-  transform-origin: center;
-}
-
-/* Header Actions */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-left: auto; /* Push to the right */
-  padding-right: 0.5rem;
-}
-
-.header-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: white;
-  text-decoration: none;
+  background: var(--primary, #1e3a8a);
+  border-radius: 3px;
   transition: all 0.3s ease;
-  font-size: 1.1rem;
-}
-
-.header-action-btn:hover {
-  background: var(--secondary);
-  transform: translateY(-2px);
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .header-actions {
-    margin-left: auto;
-    gap: 0.5rem;
-  }
-
   .menu-toggle {
     display: flex;
-    margin-left: 1rem;
   }
 
-  .main-nav {
-    position: fixed;
-    top: 0;
-    right: -300px;
-    bottom: 0;
-    width: 280px;
-    background: white;
+  /* Increase specificity to override conflicting styles */
+  .navbar .main-nav,
+  nav.main-nav {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    width: min(80vw, 300px) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: white !important;
     flex-direction: column;
-    padding: 6rem 1.5rem 2rem;
-    transition: right 0.3s ease;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+
+    /* Use transform instead of right property for better performance and to avoid overflow */
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    padding: 6rem 1rem 2rem;
+    z-index: 1000;
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .main-nav.active {
-    right: 0;
+    transform: translateX(0) !important;
   }
 
+  .main-nav a {
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  /* Hamburger Animation */
   .menu-toggle.active span:nth-child(1) {
     transform: translateY(9px) rotate(45deg);
   }
@@ -187,9 +161,5 @@
 
   .menu-toggle.active span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
-  }
-
-  .menu-toggle span {
-    background: var(--primary);
   }
 }

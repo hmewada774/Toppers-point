@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="View our events and activities at Toppers Point Coaching. Stay updated with our latest celebrations, competitions, and special programs.">
+  <meta name="description"
+    content="View our events and activities at Toppers Point Coaching. Stay updated with our latest celebrations, competitions, and special programs.">
   <title>Events - Toppers Point Coaching</title>
+  <link rel="stylesheet" href="/css/header-style.css">
+  <link rel="stylesheet" href="/css/footer-style.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="canonical" href="https://topperspoint.in/events.html">
   <!-- Open Graph -->
@@ -44,8 +48,12 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="module">
     import { applySEO } from '/js/seo.js';
     applySEO({
@@ -55,139 +63,138 @@
     });
   </script>
 </head>
+
 <body>
 
-<header class="navbar" id="navbar">
-  <div class="container nav-container">
-    <img src="/images/logo.png" alt="Toppers Point Logo" class="logo">
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <nav id="mainNav">
-      <a href="/">Home</a>
-      <a href="/toppers.html">Toppers</a>
-      <a href="/courses.html">Courses</a>
-      <a href="/events.html" class="active">Events</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<section class="events-section">
-  <div class="container">
-    <div class="section-title">
-      <h2>Our Events</h2>
-      <p>Celebrating achievements, fostering community, and creating memorable experiences</p>
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="brand-link" aria-label="Toppers Point Home">
+        <img src="/images/logo.png" alt="Toppers Point Logo" class="logo">
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="mainNav" class="main-nav" aria-label="Main navigation">
+        <a href="/" data-route="/">Home</a>
+        <a href="/toppers.html" data-route="/toppers.html">Toppers</a>
+        <a href="/courses.html" data-route="/courses.html">Courses</a>
+        <a href="/events.html" class="active" data-route="/events.html">Events</a>
+        <a href="/contact.html" data-route="/contact.html">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <div id="eventsContainer" class="grid grid-3">
-      <div class="loading">
-        <div class="spinner"></div>
+  <section class="events-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Events</h2>
+        <p>Celebrating achievements, fostering community, and creating memorable experiences</p>
+      </div>
+
+      <div id="eventsContainer" class="grid grid-3">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <div id="noEvents" style="display: none; text-align: center; padding: 3rem; color: var(--text-secondary);">
+        <i class="fas fa-calendar-times" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+        <h3>No events found</h3>
+        <p>Check back later for upcoming events.</p>
       </div>
     </div>
+  </section>
 
-    <div id="noEvents" style="display: none; text-align: center; padding: 3rem; color: var(--text-secondary);">
-      <i class="fas fa-calendar-times" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-      <h3>No events found</h3>
-      <p>Check back later for upcoming events.</p>
+  <footer class="footer">
+    <div class="footer-content">
+      <p><strong>Visit:</strong> Toppers Point Bajarnag colony near Sony Lodge, Ashta (M.P)</p>
+      <p><strong>Phone:</strong> <a href="tel:+917869703381">+91 7869703381</a></p>
+      <p><strong>Email:</strong> <a href="mailto:topperspoint@gmail.com">topperspoint@gmail.com</a></p>
+      <div class="social">
+        <a href="https://www.instagram.com/toppers_point_coaching_ashta/" target="_blank" rel="noopener"
+          aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me/917869703381" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+      <hr>
+      <p class="designer-credit">
+        This website is designed by <strong>Hariom Mewada</strong> —
+        <a href="https://instagram.com/_wishmaster_hariom_" target="_blank" rel="noopener">@_wishmaster_hariom_</a>
+      </p>
+      <p>&copy; <span id="year"></span> Toppers Point Coaching. All Rights Reserved.</p>
     </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" title="Scroll to top">&uarr;</button>
+
+  <!-- Quick Contact Buttons -->
+  <div class="quick-contact">
+    <a href="https://wa.me/917869703381" class="quick-contact-btn whatsapp" target="_blank" rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+      <span class="tooltip">Chat on WhatsApp</span>
+    </a>
+    <a href="tel:917869703381" class="quick-contact-btn phone" aria-label="Call Us">
+      <i class="fas fa-phone"></i>
+      <span class="tooltip">Call Us</span>
+    </a>
   </div>
-</section>
 
-<footer class="footer">
-  <div class="footer-content">
-    <p><strong>Visit:</strong> Toppers Point Bajarnag colony near sony ladge Ashta (M.P)</p>
-    <p><strong>Phone:</strong> +91 7869703381</p>
-    <p><strong>Email:</strong> <a href="mailto:topperspoint@gmail.com">topperspoint@gmail.com</a></p>
-    <p>
-      <a href="https://www.instagram.com/toppers_point_coaching_ashta/?__pwa=1#" target="_blank" rel="noopener">Instagram</a> |
-      <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener">Facebook</a> |
-      <a href="https://wa.me/917869703381" target="_blank" rel="noopener">WhatsApp</a> |
-      <a href="mailto:topperspoint@gmail.com">Gmail</a>
-    </p>
-    <p>© <span id="year"></span> Toppers Point Coaching. All Rights Reserved.</p>
-  </div>
-</footer>
+  <script src="/js/main.js"></script>
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
 
-<!-- Scroll to Top Button -->
-<button class="scroll-top" title="Scroll to top">&uarr;</button>
+    // Mobile menu toggle logic removed (handled by main.js)
 
-<!-- Quick Contact Buttons -->
-<div class="quick-contact">
-  <a href="https://wa.me/917869703381" class="quick-contact-btn whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-    <span class="tooltip">Chat on WhatsApp</span>
-  </a>
-  <a href="tel:917869703381" class="quick-contact-btn phone" aria-label="Call Us">
-    <i class="fas fa-phone"></i>
-    <span class="tooltip">Call Us</span>
-  </a>
-</div>
+    // Show/hide scroll to top button
+    const scrollTopBtn = document.querySelector('.scroll-top');
 
-<script src="/js/main.js"></script>
-<script>
-  document.getElementById('year').innerText = new Date().getFullYear();
-
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
-  
-  if (menuToggle && mainNav) {
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      mainNav.classList.toggle('active');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
     });
 
-    mainNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        mainNav.classList.remove('active');
+    // Scroll to top on click
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
       });
     });
-  }
 
-  // Show/hide scroll to top button
-  const scrollTopBtn = document.querySelector('.scroll-top');
-  
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      scrollTopBtn.classList.add('show');
-    } else {
-      scrollTopBtn.classList.remove('show');
-    }
-  });
+    // Fetch and display events
+    if (window.location.pathname.endsWith('events.html')) {
+      const container = document.getElementById('eventsContainer');
+      const noEvents = document.getElementById('noEvents');
 
-  // Scroll to top on click
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
+      fetch('/api/events')
+        .then(res => res.json())
+        .then(events => {
+          container.innerHTML = '';
 
-  // Fetch and display events
-  if (window.location.pathname.endsWith('events.html')) {
-    const container = document.getElementById('eventsContainer');
-    const noEvents = document.getElementById('noEvents');
+          if (events.length === 0) {
+            noEvents.style.display = 'block';
+            return;
+          }
 
-    fetch('/api/events')
-      .then(res => res.json())
-      .then(events => {
-        container.innerHTML = '';
+          noEvents.style.display = 'none';
 
-        if (events.length === 0) {
-          noEvents.style.display = 'block';
-          return;
-        }
-
-        noEvents.style.display = 'none';
-
-        events.forEach(e => {
-          const card = document.createElement('div');
-          card.className = 'card event-card fade-in';
-          card.innerHTML = `
+          events.forEach(e => {
+            const card = document.createElement('div');
+            card.className = 'card event-card fade-in';
+            card.innerHTML = `
             <img src="${e.image}" alt="${e.title}" loading="lazy">
             <div class="event-info">
               <span class="event-date">${e.year}</span>
@@ -195,15 +202,16 @@
               ${e.description ? `<p style="color: var(--text-secondary); margin-top: 0.5rem;">${e.description}</p>` : ''}
             </div>
           `;
-          container.appendChild(card);
+            container.appendChild(card);
+          });
+        })
+        .catch(err => {
+          console.error('Error loading events:', err);
+          container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--error);">Failed to load events. Please try again later.</div>';
         });
-      })
-      .catch(err => {
-        console.error('Error loading events:', err);
-        container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--error);">Failed to load events. Please try again later.</div>';
-      });
-  }
-</script>
+    }
+  </script>
 
 </body>
+
 </html>

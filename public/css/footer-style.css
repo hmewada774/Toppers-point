@@ -1,174 +1,170 @@
-/* Footer Styles */
-.footer {
-  background: var(--primary);
-  color: white;
-  padding: 2rem 0 1.5rem;
+/* ============================================
+   FOOTER (Unified Footer Styles)
+   Derived from Industry Grade Design (style.css)
+   ============================================ */
+
+/* Base Footer Structure */
+.footer,
+.main-footer {
+  background: #1e40af;
+  /* Deep Blue */
+  color: #ffffff;
+  padding: 3rem 0 2rem;
+  margin-top: 4rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  width: 100%;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
   position: relative;
-  overflow: hidden;
-  font-size: 0.9rem;
+  overflow: visible;
+  /* Prevent clipping */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.7;
 }
 
-.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--secondary);
-}
-
+/* Footer Content Container */
 .footer-content {
   max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 1.25rem;
-  text-align: center;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
-.footer p {
-  margin: 0.35rem 0;
+/* Footer Typography & Elements */
+.footer-content p {
+  margin: 0.5rem 0;
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.5;
-  font-size: 0.9em;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
-.footer a {
-  color: white;
+/* Strong Text */
+.footer-content strong {
+  color: #fff;
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+/* Links */
+.footer-content a {
+  color: #ffffff;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+  opacity: 0.95;
 }
 
-.footer a:hover {
-  color: var(--secondary);
+.footer-content a:hover {
+  color: #f97316;
+  /* Secondary Orange */
+  opacity: 1;
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
-.footer .social {
-  margin: 1rem 0;
+.footer-content a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #f97316;
+  transition: width 0.3s ease;
+}
+
+.footer-content a:hover::after {
+  width: 100%;
+}
+
+/* Social Icons */
+.social {
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.footer .social a {
+.social a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  transition: all 0.3s ease;
-  font-size: 0.9em;
-}
-
-.footer .social a:hover {
-  background: var(--secondary);
-  transform: translateY(-2px);
-}
-
-.footer hr {
-  border: none;
-  height: 1px;
   background: rgba(255, 255, 255, 0.1);
-  margin: 0.8rem auto;
-  max-width: 200px;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  color: white !important;
+  /* Force white icon */
 }
 
+.social a:hover {
+  background: #f97316;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.social a::after {
+  display: none;
+  /* Remove underline from icons */
+}
+
+/* Separator Line */
+.footer hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+/* Designer Credit */
 .designer-credit {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0.8rem 0 0.5rem;
+  font-size: 0.9rem !important;
+  margin-top: 1rem !important;
+  opacity: 0.8 !important;
 }
 
 .designer-credit a {
-  color: var(--secondary);
-  font-weight: 500;
+  color: #fca5a5 !important;
+  /* Soft red/pink for signature */
+  font-weight: 600;
 }
 
-/* Quick Contact Buttons */
-.quick-contact {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 100;
+.designer-credit a:hover {
+  color: white !important;
 }
 
-.quick-contact-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.2rem;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.quick-contact-btn.whatsapp {
-  background: #25D366;
-}
-
-.quick-contact-btn.phone {
-  background: var(--secondary);
-}
-
-.quick-contact-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-.quick-contact-btn .tooltip {
-  position: absolute;
-  right: 60px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  color: var(--text-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+/* Copyright */
+.footer p:last-child {
   font-size: 0.85rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2rem;
 }
 
-.quick-contact-btn:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-  right: 65px;
-}
-
-/* Responsive Styles */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .footer {
-    padding: 2rem 0;
+    padding: 2.5rem 0 6rem;
+    /* Extra bottom padding for floating mobile buttons if needed */
   }
-  
-  .footer .social {
-    flex-wrap: wrap;
+
+  .footer-content {
+    padding: 0 1rem;
   }
-  
-  .quick-contact {
-    bottom: 20px;
-    right: 20px;
-  }
-  
-  .quick-contact-btn {
-    width: 44px;
-    height: 44px;
-    font-size: 1.25rem;
-  }
-  
-  .quick-contact-btn .tooltip {
-    display: none;
+
+  .social {
+    gap: 1rem;
   }
 }

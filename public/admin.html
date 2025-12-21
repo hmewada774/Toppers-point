@@ -1,42 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Admin Dashboard — Toppers Point</title>
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    .admin-container { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem; }
-    .admin-section { background: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md); }
-    .admin-section h2 { color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-    .admin-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .admin-form input, .admin-form textarea, .admin-form select { padding: 0.75rem; border: 2px solid var(--bg-tertiary); border-radius: 8px; font-size: 1rem; }
-    .admin-form input:focus, .admin-form textarea:focus, .admin-form select:focus { outline: none; border-color: var(--primary); }
-    .admin-form textarea { grid-column: 1 / -1; min-height: 100px; resize: vertical; }
-    .file-upload-wrapper { grid-column: 1 / -1; }
-    .file-upload-label { display: block; padding: 1.5rem; border: 2px dashed var(--bg-tertiary); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s; }
-    .file-upload-label:hover { border-color: var(--primary); background: var(--bg-secondary); }
-    .file-upload-label i { font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; }
-    .file-preview { margin-top: 1rem; max-width: 300px; border-radius: 8px; }
-    .file-preview img, .file-preview video { width: 100%; border-radius: 8px; }
-    .items-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-    .item-card { background: var(--bg-secondary); padding: 1rem; border-radius: 8px; border: 1px solid var(--bg-tertiary); }
-    .item-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem; }
-    .item-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-    .item-actions button, .item-actions form { flex: 1; }
-    .btn-small { padding: 0.5rem 1rem; font-size: 0.875rem; }
-    .delete-btn { background: var(--error); color: white; }
-    .delete-btn:hover { background: #dc2626; }
-    .featured-badge { display: inline-block; background: var(--secondary); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; margin-left: 0.5rem; }
-    .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid var(--bg-tertiary); }
-    .tab { padding: 1rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--text-secondary); border-bottom: 3px solid transparent; transition: all 0.3s; }
-    .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .success-message { background: var(--success); color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
-    .error-message { background: var(--error); color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .admin-section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .admin-section h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .admin-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .admin-form input,
+    .admin-form textarea,
+    .admin-form select {
+      padding: 0.75rem;
+      border: 2px solid var(--bg-tertiary);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .admin-form input:focus,
+    .admin-form textarea:focus,
+    .admin-form select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .admin-form textarea {
+      grid-column: 1 / -1;
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .file-upload-wrapper {
+      grid-column: 1 / -1;
+    }
+
+    .file-upload-label {
+      display: block;
+      padding: 1.5rem;
+      border: 2px dashed var(--bg-tertiary);
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .file-upload-label:hover {
+      border-color: var(--primary);
+      background: var(--bg-secondary);
+    }
+
+    .file-upload-label i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .file-preview {
+      margin-top: 1rem;
+      max-width: 300px;
+      border-radius: 8px;
+    }
+
+    .file-preview img,
+    .file-preview video {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .items-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .item-card {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--bg-tertiary);
+    }
+
+    .item-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .item-actions button,
+    .item-actions form {
+      flex: 1;
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .delete-btn {
+      background: var(--error);
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #dc2626;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      background: var(--secondary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      margin-left: 0.5rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--bg-tertiary);
+    }
+
+    .tab {
+      padding: 1rem 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .error-message {
+      background: var(--error);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
   </style>
   <script type="module">
     import { applySEO } from '/js/seo.js';
@@ -48,308 +214,323 @@
     });
   </script>
 </head>
+
 <body style="background: var(--bg-secondary); padding-top: 80px;">
 
-<header class="navbar">
-  <div class="container nav-container">
-    <h2 style="color: white; margin: 0;">🏫 Admin Dashboard</h2>
-    <div style="display: flex; gap: 1rem; align-items: center;">
-      <a href="/" style="color: white; text-decoration: none; padding: 0.5rem 1rem; background: rgba(255,255,255,0.2); border-radius: 6px;">View Website</a>
-      <a href="/api/auth/logout" style="color: white; text-decoration: none; padding: 0.5rem 1rem; background: rgba(255,255,255,0.2); border-radius: 6px;">Logout</a>
+  <header class="navbar">
+    <div class="container nav-container">
+      <h2 style="color: white; margin: 0;">🏫 Admin Dashboard</h2>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/"
+          style="color: white; text-decoration: none; padding: 0.5rem 1rem; background: rgba(255,255,255,0.2); border-radius: 6px;">View
+          Website</a>
+        <a href="/api/auth/logout"
+          style="color: white; text-decoration: none; padding: 0.5rem 1rem; background: rgba(255,255,255,0.2); border-radius: 6px;">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="color: var(--primary); margin-bottom: 0.5rem;">Welcome to Admin Panel</h1>
+      <p style="color: var(--text-secondary);">Manage your website content easily</p>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('toppers')">
+        <i class="fas fa-trophy"></i> Toppers
+      </button>
+      <button class="tab" onclick="showTab('events')">
+        <i class="fas fa-calendar"></i> Events
+      </button>
+      <button class="tab" onclick="showTab('faculty')">
+        <i class="fas fa-chalkboard-teacher"></i> Faculty
+      </button>
+      <button class="tab" onclick="showTab('founder')">
+        <i class="fas fa-user-tie"></i> Founder
+      </button>
+      <button class="tab" onclick="showTab('pamphlets')">
+        <i class="fas fa-images"></i> Pamphlets
+      </button>
+      <button class="tab" onclick="showTab('videos')">
+        <i class="fas fa-video"></i> Videos
+      </button>
+    </div>
+
+    <!-- Toppers Tab -->
+    <div id="toppers" class="tab-content active">
+      <div class="admin-section">
+        <h2><i class="fas fa-plus-circle"></i> Add New Topper</h2>
+        <form id="addTopperForm" action="/admin/toppers/add" method="POST" enctype="multipart/form-data"
+          class="admin-form">
+          <input type="text" name="name" placeholder="Student Name" required maxlength="50">
+          <input type="number" name="year" placeholder="Year" required min="2000" max="2100">
+          <input type="text" name="subject" placeholder="Subject" required maxlength="30">
+          <input type="text" name="className" placeholder="Class (8, 9, 10, 11, 12)" required
+            pattern="^(8|9|10|11|12)$">
+          <input type="number" name="marks" placeholder="Marks (%) e.g. 95.5" required min="0" max="100" step="0.01">
+          <div class="file-upload-wrapper">
+            <label for="topperPhoto" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <div>Click to upload photo or drag and drop</div>
+              <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
+            </label>
+            <input id="topperPhoto" type="file" name="photo" accept="image/jpeg,image/png,image/webp" required
+              style="display: none;" onchange="previewFile(this, 'topperPreview')">
+            <div id="topperPreview" class="file-preview"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Topper</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="fas fa-list"></i> Existing Toppers</h2>
+        <div id="toppers-list" class="items-list"></div>
+      </div>
+    </div>
+
+    <!-- Events Tab -->
+    <div id="events" class="tab-content">
+      <div class="admin-section">
+        <h2><i class="fas fa-plus-circle"></i> Add New Event</h2>
+        <form id="addEventForm" action="/admin/events/add" method="POST" enctype="multipart/form-data"
+          class="admin-form">
+          <input type="text" name="title" placeholder="Event Title" required maxlength="60">
+          <input type="number" name="year" placeholder="Year" required min="2000" max="2100">
+          <div class="file-upload-wrapper">
+            <label for="eventImage" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <div>Click to upload event photo or drag and drop</div>
+              <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
+            </label>
+            <input id="eventImage" type="file" name="image" accept="image/jpeg,image/png,image/webp" required
+              style="display: none;" onchange="previewFile(this, 'eventPreview')">
+            <div id="eventPreview" class="file-preview"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Event</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="fas fa-list"></i> Existing Events</h2>
+        <div id="events-list" class="items-list"></div>
+      </div>
+    </div>
+
+    <!-- Faculty Tab -->
+    <div id="faculty" class="tab-content">
+      <div class="admin-section">
+        <h2><i class="fas fa-plus-circle"></i> Add New Faculty Member</h2>
+        <form action="/admin/faculty/add" method="POST" enctype="multipart/form-data" class="admin-form">
+          <input type="text" name="name" placeholder="Name" required maxlength="60">
+          <input type="text" name="degree" placeholder="Degree/Qualification" required maxlength="60">
+          <input type="text" name="subjects" placeholder="Subjects (comma separated)" required maxlength="120">
+          <div class="file-upload-wrapper">
+            <label for="facultyImage" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <div>Click to upload faculty photo</div>
+              <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
+            </label>
+            <input id="facultyImage" type="file" name="image" accept="image/jpeg,image/png,image/webp" required
+              style="display: none;" onchange="previewFile(this, 'facultyPreview')">
+            <div id="facultyPreview" class="file-preview"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Faculty</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="fas fa-list"></i> Existing Faculty</h2>
+        <div id="faculty-list" class="items-list"></div>
+      </div>
+    </div>
+
+    <!-- Founder Tab -->
+    <div id="founder" class="tab-content">
+      <div class="admin-section">
+        <h2><i class="fas fa-user-tie"></i> Founder & Mentor Details</h2>
+        <form id="founderForm" action="/admin/founder/save" method="POST" enctype="multipart/form-data"
+          class="admin-form">
+          <input type="text" name="name" placeholder="Name">
+          <input type="text" name="title" placeholder="Title (e.g., Founder & Head Instructor)">
+          <input type="text" name="qualification" placeholder="Qualification">
+          <input type="text" name="contact" placeholder="Contact Number">
+          <input type="url" name="instagram" placeholder="Instagram Link">
+          <input type="url" name="whatsapp" placeholder="WhatsApp Link or Number">
+          <input type="url" name="facebook" placeholder="Facebook Link">
+          <div class="file-upload-wrapper">
+            <label for="founderImage" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <div>Click to upload founder photo</div>
+              <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
+            </label>
+            <input id="founderImage" type="file" name="image" accept="image/jpeg,image/png,image/webp"
+              style="display: none;" onchange="previewFile(this, 'founderPreview')">
+            <input type="hidden" name="photo" value="">
+            <div id="founderPreview" class="file-preview"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Save Founder Details</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Pamphlets Tab -->
+    <div id="pamphlets" class="tab-content">
+      <div class="admin-section">
+        <h2><i class="fas fa-plus-circle"></i> Add Pamphlet</h2>
+        <form action="/admin/home/pamphlets/add" method="POST" enctype="multipart/form-data" class="admin-form">
+          <div class="file-upload-wrapper">
+            <label for="pamphletImage" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <div>Click to upload pamphlet image</div>
+              <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
+            </label>
+            <input id="pamphletImage" type="file" name="image" accept="image/jpeg,image/png,image/webp" required
+              style="display: none;" onchange="previewFile(this, 'pamphletPreview')">
+            <div id="pamphletPreview" class="file-preview"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Pamphlet</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="fas fa-list"></i> Existing Pamphlets</h2>
+        <div id="pamphlets-list" class="items-list"></div>
+      </div>
+    </div>
+
+    <!-- Videos Tab -->
+    <div id="videos" class="tab-content">
+      <div class="admin-section">
+        <h2><i class="fas fa-plus-circle"></i> Add Video</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+          <i class="fas fa-info-circle"></i> You can upload videos (MP4, WebM) or add YouTube/Vimeo links
+        </p>
+        <form id="addVideoForm" action="/admin/videos/add" method="POST" enctype="multipart/form-data"
+          class="admin-form">
+          <input type="text" name="title" placeholder="Video Title" required maxlength="100">
+          <input type="text" name="description" placeholder="Description (optional)" maxlength="200">
+          <select name="type" required onchange="toggleVideoInput(this.value)">
+            <option value="file">Upload Video File</option>
+            <option value="youtube">YouTube Link</option>
+            <option value="vimeo">Vimeo Link</option>
+          </select>
+          <div id="videoFileInput" class="file-upload-wrapper">
+            <label for="videoFile" class="file-upload-label">
+              <i class="fas fa-video"></i>
+              <div>Click to upload video file</div>
+              <small style="color: var(--text-secondary);">MP4, WebM (Max 50 MB)</small>
+            </label>
+            <input id="videoFile" type="file" name="video" accept="video/mp4,video/webm" style="display: none;"
+              onchange="previewVideo(this, 'videoPreview')">
+            <div id="videoPreview" class="file-preview"></div>
+          </div>
+          <div id="videoLinkInput" class="file-upload-wrapper" style="display: none;">
+            <input type="url" name="videoUrl" placeholder="Paste YouTube or Vimeo URL here">
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Video</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="fas fa-list"></i> Existing Videos</h2>
+        <div id="videos-list" class="items-list"></div>
+      </div>
     </div>
   </div>
-</header>
 
-<div class="admin-container">
-  <div style="text-align: center; margin-bottom: 2rem;">
-    <h1 style="color: var(--primary); margin-bottom: 0.5rem;">Welcome to Admin Panel</h1>
-    <p style="color: var(--text-secondary);">Manage your website content easily</p>
-  </div>
-
-  <!-- Tabs Navigation -->
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('toppers')">
-      <i class="fas fa-trophy"></i> Toppers
-    </button>
-    <button class="tab" onclick="showTab('events')">
-      <i class="fas fa-calendar"></i> Events
-    </button>
-    <button class="tab" onclick="showTab('faculty')">
-      <i class="fas fa-chalkboard-teacher"></i> Faculty
-    </button>
-    <button class="tab" onclick="showTab('founder')">
-      <i class="fas fa-user-tie"></i> Founder
-    </button>
-    <button class="tab" onclick="showTab('pamphlets')">
-      <i class="fas fa-images"></i> Pamphlets
-    </button>
-    <button class="tab" onclick="showTab('videos')">
-      <i class="fas fa-video"></i> Videos
-    </button>
-  </div>
-
-  <!-- Toppers Tab -->
-  <div id="toppers" class="tab-content active">
-    <div class="admin-section">
-      <h2><i class="fas fa-plus-circle"></i> Add New Topper</h2>
-      <form id="addTopperForm" action="/admin/toppers/add" method="POST" enctype="multipart/form-data" class="admin-form">
-        <input type="text" name="name" placeholder="Student Name" required maxlength="50">
-        <input type="number" name="year" placeholder="Year" required min="2000" max="2100">
-        <input type="text" name="subject" placeholder="Subject" required maxlength="30">
-        <input type="text" name="className" placeholder="Class (8, 9, 10, 11, 12)" required pattern="^(8|9|10|11|12)$">
-        <input type="number" name="marks" placeholder="Marks (%) e.g. 95.5" required min="0" max="100" step="0.01">
-        <div class="file-upload-wrapper">
-          <label for="topperPhoto" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <div>Click to upload photo or drag and drop</div>
-            <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
-          </label>
-          <input id="topperPhoto" type="file" name="photo" accept="image/jpeg,image/png,image/webp" required style="display: none;" onchange="previewFile(this, 'topperPreview')">
-          <div id="topperPreview" class="file-preview"></div>
-        </div>
-        <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Topper</button>
-      </form>
-    </div>
-
-    <div class="admin-section">
-      <h2><i class="fas fa-list"></i> Existing Toppers</h2>
-      <div id="toppers-list" class="items-list"></div>
-    </div>
-  </div>
-
-  <!-- Events Tab -->
-  <div id="events" class="tab-content">
-    <div class="admin-section">
-      <h2><i class="fas fa-plus-circle"></i> Add New Event</h2>
-      <form id="addEventForm" action="/admin/events/add" method="POST" enctype="multipart/form-data" class="admin-form">
-        <input type="text" name="title" placeholder="Event Title" required maxlength="60">
-        <input type="number" name="year" placeholder="Year" required min="2000" max="2100">
-        <div class="file-upload-wrapper">
-          <label for="eventImage" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <div>Click to upload event photo or drag and drop</div>
-            <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
-          </label>
-          <input id="eventImage" type="file" name="image" accept="image/jpeg,image/png,image/webp" required style="display: none;" onchange="previewFile(this, 'eventPreview')">
-          <div id="eventPreview" class="file-preview"></div>
-        </div>
-        <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Event</button>
-      </form>
-    </div>
-
-    <div class="admin-section">
-      <h2><i class="fas fa-list"></i> Existing Events</h2>
-      <div id="events-list" class="items-list"></div>
-    </div>
-  </div>
-
-  <!-- Faculty Tab -->
-  <div id="faculty" class="tab-content">
-    <div class="admin-section">
-      <h2><i class="fas fa-plus-circle"></i> Add New Faculty Member</h2>
-      <form action="/admin/faculty/add" method="POST" enctype="multipart/form-data" class="admin-form">
-        <input type="text" name="name" placeholder="Name" required maxlength="60">
-        <input type="text" name="degree" placeholder="Degree/Qualification" required maxlength="60">
-        <input type="text" name="subjects" placeholder="Subjects (comma separated)" required maxlength="120">
-        <div class="file-upload-wrapper">
-          <label for="facultyImage" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <div>Click to upload faculty photo</div>
-            <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
-          </label>
-          <input id="facultyImage" type="file" name="image" accept="image/jpeg,image/png,image/webp" required style="display: none;" onchange="previewFile(this, 'facultyPreview')">
-          <div id="facultyPreview" class="file-preview"></div>
-        </div>
-        <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Faculty</button>
-      </form>
-    </div>
-
-    <div class="admin-section">
-      <h2><i class="fas fa-list"></i> Existing Faculty</h2>
-      <div id="faculty-list" class="items-list"></div>
-    </div>
-  </div>
-
-  <!-- Founder Tab -->
-  <div id="founder" class="tab-content">
-    <div class="admin-section">
-      <h2><i class="fas fa-user-tie"></i> Founder & Mentor Details</h2>
-      <form id="founderForm" action="/admin/founder/save" method="POST" enctype="multipart/form-data" class="admin-form">
-        <input type="text" name="name" placeholder="Name">
-        <input type="text" name="title" placeholder="Title (e.g., Founder & Head Instructor)">
-        <input type="text" name="qualification" placeholder="Qualification">
-        <input type="text" name="contact" placeholder="Contact Number">
-        <input type="url" name="instagram" placeholder="Instagram Link">
-        <input type="url" name="whatsapp" placeholder="WhatsApp Link or Number">
-        <input type="url" name="facebook" placeholder="Facebook Link">
-        <div class="file-upload-wrapper">
-          <label for="founderImage" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <div>Click to upload founder photo</div>
-            <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
-          </label>
-          <input id="founderImage" type="file" name="image" accept="image/jpeg,image/png,image/webp" style="display: none;" onchange="previewFile(this, 'founderPreview')">
-          <input type="hidden" name="photo" value="">
-          <div id="founderPreview" class="file-preview"></div>
-        </div>
-        <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Save Founder Details</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Pamphlets Tab -->
-  <div id="pamphlets" class="tab-content">
-    <div class="admin-section">
-      <h2><i class="fas fa-plus-circle"></i> Add Pamphlet</h2>
-      <form action="/admin/home/pamphlets/add" method="POST" enctype="multipart/form-data" class="admin-form">
-        <div class="file-upload-wrapper">
-          <label for="pamphletImage" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <div>Click to upload pamphlet image</div>
-            <small style="color: var(--text-secondary);">JPEG, PNG, WebP (Max 5 MB)</small>
-          </label>
-          <input id="pamphletImage" type="file" name="image" accept="image/jpeg,image/png,image/webp" required style="display: none;" onchange="previewFile(this, 'pamphletPreview')">
-          <div id="pamphletPreview" class="file-preview"></div>
-        </div>
-        <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Pamphlet</button>
-      </form>
-    </div>
-
-    <div class="admin-section">
-      <h2><i class="fas fa-list"></i> Existing Pamphlets</h2>
-      <div id="pamphlets-list" class="items-list"></div>
-    </div>
-  </div>
-
-  <!-- Videos Tab -->
-  <div id="videos" class="tab-content">
-    <div class="admin-section">
-      <h2><i class="fas fa-plus-circle"></i> Add Video</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-        <i class="fas fa-info-circle"></i> You can upload videos (MP4, WebM) or add YouTube/Vimeo links
-      </p>
-      <form id="addVideoForm" action="/admin/videos/add" method="POST" enctype="multipart/form-data" class="admin-form">
-        <input type="text" name="title" placeholder="Video Title" required maxlength="100">
-        <input type="text" name="description" placeholder="Description (optional)" maxlength="200">
-        <select name="type" required onchange="toggleVideoInput(this.value)">
-          <option value="file">Upload Video File</option>
-          <option value="youtube">YouTube Link</option>
-          <option value="vimeo">Vimeo Link</option>
-        </select>
-        <div id="videoFileInput" class="file-upload-wrapper">
-          <label for="videoFile" class="file-upload-label">
-            <i class="fas fa-video"></i>
-            <div>Click to upload video file</div>
-            <small style="color: var(--text-secondary);">MP4, WebM (Max 50 MB)</small>
-          </label>
-          <input id="videoFile" type="file" name="video" accept="video/mp4,video/webm" style="display: none;" onchange="previewVideo(this, 'videoPreview')">
-          <div id="videoPreview" class="file-preview"></div>
-        </div>
-        <div id="videoLinkInput" class="file-upload-wrapper" style="display: none;">
-          <input type="url" name="videoUrl" placeholder="Paste YouTube or Vimeo URL here">
-        </div>
-        <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Add Video</button>
-      </form>
-    </div>
-
-    <div class="admin-section">
-      <h2><i class="fas fa-list"></i> Existing Videos</h2>
-      <div id="videos-list" class="items-list"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-  // Tab switching
-  function showTab(tabName, evt) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    if (evt && evt.currentTarget) { evt.currentTarget.classList.add('active'); }
-    else {
-      // find the matching tab button by its onclick arg
-      const btn = document.querySelector(`.tabs .tab[onclick*="${tabName}"]`);
-      if (btn) btn.classList.add('active');
-    }
-    const pane = document.getElementById(tabName);
-    if (pane) pane.classList.add('active');
-    // update hash so redirects can keep us on the same tab
-    if (location.hash !== `#${tabName}`) { location.hash = `#${tabName}`; }
-  }
-
-  // Initialize from hash
-  function initTabsFromHash(){
-    const hash = (location.hash || '').replace('#','') || 'toppers';
-    // activate matching button
-    const btn = document.querySelector(`.tabs .tab[onclick*="${hash}"]`);
-    if (btn) { btn.click(); }
-    else {
+  <script>
+    // Tab switching
+    function showTab(tabName, evt) {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      const fallbackBtn = document.querySelector('.tabs .tab');
-      const fallbackPane = document.querySelector('.tab-content');
-      if (fallbackBtn) fallbackBtn.classList.add('active');
-      if (fallbackPane) fallbackPane.classList.add('active');
+      if (evt && evt.currentTarget) { evt.currentTarget.classList.add('active'); }
+      else {
+        // find the matching tab button by its onclick arg
+        const btn = document.querySelector(`.tabs .tab[onclick*="${tabName}"]`);
+        if (btn) btn.classList.add('active');
+      }
+      const pane = document.getElementById(tabName);
+      if (pane) pane.classList.add('active');
+      // update hash so redirects can keep us on the same tab
+      if (location.hash !== `#${tabName}`) { location.hash = `#${tabName}`; }
     }
-  }
-  window.addEventListener('hashchange', initTabsFromHash);
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initTabsFromHash); else initTabsFromHash();
 
-  // File preview
-  function previewFile(input, previewId) {
-    const preview = document.getElementById(previewId);
-    preview.innerHTML = '';
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        preview.appendChild(img);
-      };
-      reader.readAsDataURL(input.files[0]);
+    // Initialize from hash
+    function initTabsFromHash() {
+      const hash = (location.hash || '').replace('#', '') || 'toppers';
+      // activate matching button
+      const btn = document.querySelector(`.tabs .tab[onclick*="${hash}"]`);
+      if (btn) { btn.click(); }
+      else {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        const fallbackBtn = document.querySelector('.tabs .tab');
+        const fallbackPane = document.querySelector('.tab-content');
+        if (fallbackBtn) fallbackBtn.classList.add('active');
+        if (fallbackPane) fallbackPane.classList.add('active');
+      }
     }
-  }
+    window.addEventListener('hashchange', initTabsFromHash);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initTabsFromHash); else initTabsFromHash();
 
-  // Video preview
-  function previewVideo(input, previewId) {
-    const preview = document.getElementById(previewId);
-    preview.innerHTML = '';
-    if (input.files && input.files[0]) {
-      const video = document.createElement('video');
-      video.src = URL.createObjectURL(input.files[0]);
-      video.controls = true;
-      video.style.width = '100%';
-      preview.appendChild(video);
+    // File preview
+    function previewFile(input, previewId) {
+      const preview = document.getElementById(previewId);
+      preview.innerHTML = '';
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     }
-  }
 
-  // Toggle video input type
-  function toggleVideoInput(type) {
-    document.getElementById('videoFileInput').style.display = type === 'file' ? 'block' : 'none';
-    document.getElementById('videoLinkInput').style.display = type !== 'file' ? 'block' : 'none';
-  }
+    // Video preview
+    function previewVideo(input, previewId) {
+      const preview = document.getElementById(previewId);
+      preview.innerHTML = '';
+      if (input.files && input.files[0]) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(input.files[0]);
+        video.controls = true;
+        video.style.width = '100%';
+        preview.appendChild(video);
+      }
+    }
 
-  // File upload label click
-  document.querySelectorAll('.file-upload-label').forEach(label => {
-    const forId = label.getAttribute('for');
-    // If label is natively associated to an input using 'for', let the browser handle it once.
-    if (forId) return;
-    label.addEventListener('click', () => {
-      const input = label.nextElementSibling;
-      if (input && input.type === 'file') input.click();
+    // Toggle video input type
+    function toggleVideoInput(type) {
+      document.getElementById('videoFileInput').style.display = type === 'file' ? 'block' : 'none';
+      document.getElementById('videoLinkInput').style.display = type !== 'file' ? 'block' : 'none';
+    }
+
+    // File upload label click
+    document.querySelectorAll('.file-upload-label').forEach(label => {
+      const forId = label.getAttribute('for');
+      // If label is natively associated to an input using 'for', let the browser handle it once.
+      if (forId) return;
+      label.addEventListener('click', () => {
+        const input = label.nextElementSibling;
+        if (input && input.type === 'file') input.click();
+      });
     });
-  });
 
-  // Load existing items
-  async function loadToppers() {
-    try {
-      const res = await fetch('/api/toppers');
-      const toppers = await res.json();
-      const container = document.getElementById('toppers-list');
-      container.innerHTML = '';
-      toppers.slice(0, 50).forEach(t => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        card.innerHTML = `
+    // Load existing items
+    async function loadToppers() {
+      try {
+        const res = await fetch('/api/toppers');
+        const toppers = await res.json();
+        const container = document.getElementById('toppers-list');
+        container.innerHTML = '';
+        toppers.slice(0, 50).forEach(t => {
+          const card = document.createElement('div');
+          card.className = 'item-card';
+          card.innerHTML = `
           <img src="${t.photo}" alt="${t.name}" onerror="this.src='/images/logo.png'">
           <h4>${t.name} ${t.featuredHome ? '<span class="featured-badge">Featured</span>' : ''}</h4>
           <p style="font-size: 0.875rem; color: var(--text-secondary);">Class ${t.className} • ${t.subject} • ${t.marks}% • ${t.year}</p>
@@ -362,23 +543,23 @@
             </form>
           </div>
         `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error('Error loading toppers:', err);
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Error loading toppers:', err);
+      }
     }
-  }
 
-  async function loadEvents() {
-    try {
-      const res = await fetch('/api/events');
-      const events = await res.json();
-      const container = document.getElementById('events-list');
-      container.innerHTML = '';
-      events.slice(0, 50).forEach(e => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        card.innerHTML = `
+    async function loadEvents() {
+      try {
+        const res = await fetch('/api/events');
+        const events = await res.json();
+        const container = document.getElementById('events-list');
+        container.innerHTML = '';
+        events.slice(0, 50).forEach(e => {
+          const card = document.createElement('div');
+          card.className = 'item-card';
+          card.innerHTML = `
           <img src="${e.image}" alt="${e.title}" onerror="this.src='/images/logo.png'">
           <h4>${e.title} ${e.featuredHome ? '<span class="featured-badge">Featured</span>' : ''}</h4>
           <p style="font-size: 0.875rem; color: var(--text-secondary);">${e.year}</p>
@@ -391,23 +572,23 @@
             </form>
           </div>
         `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error('Error loading events:', err);
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Error loading events:', err);
+      }
     }
-  }
 
-  async function loadFaculty() {
-    try {
-      const res = await fetch('/admin/faculty');
-      const faculty = await res.json();
-      const container = document.getElementById('faculty-list');
-      container.innerHTML = '';
-      faculty.slice(0, 100).forEach(f => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        card.innerHTML = `
+    async function loadFaculty() {
+      try {
+        const res = await fetch('/admin/faculty');
+        const faculty = await res.json();
+        const container = document.getElementById('faculty-list');
+        container.innerHTML = '';
+        faculty.slice(0, 100).forEach(f => {
+          const card = document.createElement('div');
+          card.className = 'item-card';
+          card.innerHTML = `
           <img src="${f.photo}" alt="${f.name}" onerror="this.src='/images/logo.png'">
           <h4>${f.name}</h4>
           <p style="font-size: 0.875rem; color: var(--text-secondary);">${f.degree}</p>
@@ -421,23 +602,23 @@
             </form>
           </div>
         `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error('Error loading faculty:', err);
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Error loading faculty:', err);
+      }
     }
-  }
 
-  async function loadPamphlets() {
-    try {
-      const res = await fetch('/api/home/pamphlets');
-      const pamphlets = await res.json();
-      const container = document.getElementById('pamphlets-list');
-      container.innerHTML = '';
-      pamphlets.forEach(src => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        card.innerHTML = `
+    async function loadPamphlets() {
+      try {
+        const res = await fetch('/api/home/pamphlets');
+        const pamphlets = await res.json();
+        const container = document.getElementById('pamphlets-list');
+        container.innerHTML = '';
+        pamphlets.forEach(src => {
+          const card = document.createElement('div');
+          card.className = 'item-card';
+          card.innerHTML = `
           <img src="${src}" alt="Pamphlet" onerror="this.src='/images/logo.png'">
           <div class="item-actions">
             <form action="/admin/home/pamphlets/delete" method="POST" onsubmit="return confirm('Delete this pamphlet?')" style="margin: 0; width: 100%;">
@@ -446,89 +627,89 @@
             </form>
           </div>
         `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error('Error loading pamphlets:', err);
-    }
-  }
-
-  // Prefill founder form
-  async function loadFounder() {
-    try {
-      const res = await fetch('/admin/founder');
-      const f = await res.json();
-      if (!f) return;
-      const form = document.getElementById('founderForm');
-      if (!form) return;
-      ['name', 'title', 'qualification', 'contact', 'instagram', 'whatsapp', 'facebook'].forEach(k => {
-        if (f[k] && form.elements[k]) form.elements[k].value = f[k];
-      });
-      if (f.photo && form.elements['photo']) {
-        form.elements['photo'].value = f.photo;
-        const preview = document.getElementById('founderPreview');
-        if (preview && f.photo) {
-          preview.innerHTML = `<img src="${f.photo}" alt="Founder">`;
-        }
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Error loading pamphlets:', err);
       }
-    } catch (err) {
-      console.error('Error loading founder:', err);
     }
-  }
 
-  // Image validation
-  function validateImage(inputEl, hintEl) {
-    const MAX_BYTES = 5 * 1024 * 1024;
-    const f = inputEl.files && inputEl.files[0];
-    if (!f) return true;
-    const okType = ["image/jpeg", "image/png", "image/webp"].includes(f.type);
-    if (!okType) {
-      alert('Invalid file type. Use JPEG/PNG/WebP.');
-      return false;
-    }
-    if (f.size > MAX_BYTES) {
-      alert('File too large. Max 5 MB.');
-      return false;
-    }
-    return true;
-  }
-
-  // Form validation
-  document.getElementById('addTopperForm')?.addEventListener('submit', (e) => {
-    const photo = document.getElementById('topperPhoto');
-    if (photo && !validateImage(photo, null)) e.preventDefault();
-  });
-
-  document.getElementById('addEventForm')?.addEventListener('submit', (e) => {
-    const image = document.getElementById('eventImage');
-    if (image && !validateImage(image, null)) e.preventDefault();
-  });
-
-  // Load videos
-  async function loadVideos() {
-    try {
-      const res = await fetch('/admin/videos');
-      const videos = await res.json();
-      const container = document.getElementById('videos-list');
-      container.innerHTML = '';
-      videos.forEach(v => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        
-        let videoContent = '';
-        if (v.type === 'file' && v.videoFile) {
-          videoContent = `<video controls style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;"><source src="${v.videoFile}"></video>`;
-        } else if (v.type === 'youtube' && v.videoUrl) {
-          const videoId = extractYouTubeId(v.videoUrl);
-          videoContent = `<img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="${v.title}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">`;
-        } else if (v.type === 'vimeo' && v.videoUrl) {
-          const videoId = extractVimeoId(v.videoUrl);
-          videoContent = `<div style="width: 100%; height: 150px; background: var(--bg-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-video" style="font-size: 2rem; color: var(--text-secondary);"></i></div>`;
-        } else {
-          videoContent = `<div style="width: 100%; height: 150px; background: var(--bg-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-video" style="font-size: 2rem; color: var(--text-secondary);"></i></div>`;
+    // Prefill founder form
+    async function loadFounder() {
+      try {
+        const res = await fetch('/admin/founder');
+        const f = await res.json();
+        if (!f) return;
+        const form = document.getElementById('founderForm');
+        if (!form) return;
+        ['name', 'title', 'qualification', 'contact', 'instagram', 'whatsapp', 'facebook'].forEach(k => {
+          if (f[k] && form.elements[k]) form.elements[k].value = f[k];
+        });
+        if (f.photo && form.elements['photo']) {
+          form.elements['photo'].value = f.photo;
+          const preview = document.getElementById('founderPreview');
+          if (preview && f.photo) {
+            preview.innerHTML = `<img src="${f.photo}" alt="Founder">`;
+          }
         }
-        
-        card.innerHTML = `
+      } catch (err) {
+        console.error('Error loading founder:', err);
+      }
+    }
+
+    // Image validation
+    function validateImage(inputEl, hintEl) {
+      const MAX_BYTES = 5 * 1024 * 1024;
+      const f = inputEl.files && inputEl.files[0];
+      if (!f) return true;
+      const okType = ["image/jpeg", "image/png", "image/webp"].includes(f.type);
+      if (!okType) {
+        alert('Invalid file type. Use JPEG/PNG/WebP.');
+        return false;
+      }
+      if (f.size > MAX_BYTES) {
+        alert('File too large. Max 5 MB.');
+        return false;
+      }
+      return true;
+    }
+
+    // Form validation
+    document.getElementById('addTopperForm')?.addEventListener('submit', (e) => {
+      const photo = document.getElementById('topperPhoto');
+      if (photo && !validateImage(photo, null)) e.preventDefault();
+    });
+
+    document.getElementById('addEventForm')?.addEventListener('submit', (e) => {
+      const image = document.getElementById('eventImage');
+      if (image && !validateImage(image, null)) e.preventDefault();
+    });
+
+    // Load videos
+    async function loadVideos() {
+      try {
+        const res = await fetch('/admin/videos');
+        const videos = await res.json();
+        const container = document.getElementById('videos-list');
+        container.innerHTML = '';
+        videos.forEach(v => {
+          const card = document.createElement('div');
+          card.className = 'item-card';
+
+          let videoContent = '';
+          if (v.type === 'file' && v.videoFile) {
+            videoContent = `<video controls style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;"><source src="${v.videoFile}"></video>`;
+          } else if (v.type === 'youtube' && v.videoUrl) {
+            const videoId = extractYouTubeId(v.videoUrl);
+            videoContent = `<img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="${v.title}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">`;
+          } else if (v.type === 'vimeo' && v.videoUrl) {
+            const videoId = extractVimeoId(v.videoUrl);
+            videoContent = `<div style="width: 100%; height: 150px; background: var(--bg-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-video" style="font-size: 2rem; color: var(--text-secondary);"></i></div>`;
+          } else {
+            videoContent = `<div style="width: 100%; height: 150px; background: var(--bg-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-video" style="font-size: 2rem; color: var(--text-secondary);"></i></div>`;
+          }
+
+          card.innerHTML = `
           ${videoContent}
           <h4>${v.title} ${v.featuredHome ? '<span class="featured-badge">Featured</span>' : ''}</h4>
           ${v.description ? `<p style="font-size: 0.875rem; color: var(--text-secondary);">${v.description}</p>` : ''}
@@ -542,66 +723,41 @@
             </form>
           </div>
         `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error('Error loading videos:', err);
-    }
-  }
-
-  // Extract YouTube video ID
-  function extractYouTubeId(url) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-  }
-
-  // Extract Vimeo video ID
-  function extractVimeoId(url) {
-    const regExp = /(?:vimeo)\.com.*(?:videos|video|channels|)\/([\d]+)/i;
-    const match = url.match(regExp);
-    return match ? match[1] : null;
-  }
-
-  // Load data on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    // CSRF token fetch and injection
-    (async function setupCsrf(){
-      try{
-        const res = await fetch('/admin/csrf-token', { credentials: 'same-origin' });
-        const data = await res.json();
-        const token = data && data.csrfToken;
-        if (!token) return;
-        const ensureToken = (form) => {
-          if (!form || form.method.toUpperCase() !== 'POST') return;
-          if (form.querySelector('input[name="_csrf"]')) return;
-          const hid = document.createElement('input');
-          hid.type = 'hidden';
-          hid.name = '_csrf';
-          hid.value = token;
-          form.appendChild(hid);
-        };
-        document.querySelectorAll('form').forEach(ensureToken);
-        const mo = new MutationObserver((muts)=>{
-          muts.forEach(m=>{
-            m.addedNodes.forEach(n=>{
-              if (n.tagName === 'FORM') ensureToken(n);
-              if (n.querySelectorAll){ n.querySelectorAll('form').forEach(ensureToken); }
-            });
-          });
+          container.appendChild(card);
         });
-        mo.observe(document.body, { childList: true, subtree: true });
-      }catch(e){ console.error('CSRF setup failed', e); }
-    })();
+      } catch (err) {
+        console.error('Error loading videos:', err);
+      }
+    }
 
-    loadToppers();
-    loadEvents();
-    loadFaculty();
-    loadPamphlets();
-    loadFounder();
-    loadVideos();
-  });
-</script>
+    // Extract YouTube video ID
+    function extractYouTubeId(url) {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    // Extract Vimeo video ID
+    function extractVimeoId(url) {
+      const regExp = /(?:vimeo)\.com.*(?:videos|video|channels|)\/([\d]+)/i;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
+    }
+
+    // Load data on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      // CSRF token fetch and injection
+      // CSRF setup removed (backend does not use csurf)
+
+      loadToppers();
+      loadEvents();
+      loadFaculty();
+      loadPamphlets();
+      loadFounder();
+      loadVideos();
+    });
+  </script>
 
 </body>
+
 </html>

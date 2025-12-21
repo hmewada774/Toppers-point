@@ -1,12 +1,14 @@
 <header class="navbar" id="navbar">
   <div class="container nav-container">
-    <img src="/images/logo.png" alt="Toppers Point Logo" class="logo">
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <a href="/" class="brand-link" aria-label="Toppers Point Home">
+      <img src="/images/logo.png" alt="Toppers Point Logo" class="logo" loading="lazy">
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
-    <nav id="mainNav">
+    <nav id="mainNav" class="main-nav" aria-label="Main navigation">
       <a href="/" data-route="/">Home</a>
       <a href="/toppers.html" data-route="/toppers.html">Toppers</a>
       <a href="/courses.html" data-route="/courses.html">Courses</a>
