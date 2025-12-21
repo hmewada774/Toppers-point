@@ -1,0 +1,174 @@
+/* Footer Styles */
+.footer {
+  background: var(--primary);
+  color: white;
+  padding: 2rem 0 1.5rem;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--secondary);
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0.35rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+  font-size: 0.9em;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: var(--secondary);
+}
+
+.footer .social {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer .social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  font-size: 0.9em;
+}
+
+.footer .social a:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+.footer hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.8rem auto;
+  max-width: 200px;
+}
+
+.designer-credit {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0.8rem 0 0.5rem;
+}
+
+.designer-credit a {
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+/* Quick Contact Buttons */
+.quick-contact {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+.quick-contact-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-contact-btn.whatsapp {
+  background: #25D366;
+}
+
+.quick-contact-btn.phone {
+  background: var(--secondary);
+}
+
+.quick-contact-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.quick-contact-btn .tooltip {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quick-contact-btn:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  right: 65px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0;
+  }
+  
+  .footer .social {
+    flex-wrap: wrap;
+  }
+  
+  .quick-contact {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .quick-contact-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.25rem;
+  }
+  
+  .quick-contact-btn .tooltip {
+    display: none;
+  }
+}

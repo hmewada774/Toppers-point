@@ -70,24 +70,16 @@
 </head>
 <body class="home-page">
   <!-- Header -->
-  <header class="navbar" id="navbar">
-    <div class="container nav-container">
+  <header class="navbar" id="navbar" >
+    <div class="container nav-container" >
       <a href="/" class="brand-link" aria-label="Toppers Point Home">
         <img src="/images/logo.png" alt="Toppers Point Coaching logo" class="logo" loading="lazy">
       </a>
-      <div class="header-actions">
-        <a href="tel:+917869703381" class="header-action-btn" aria-label="Call us">
-          <i class="fas fa-phone"></i>
-        </a>
-        <a href="https://wa.me/917869703381" target="_blank" class="header-action-btn" aria-label="Chat on WhatsApp">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-        <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-      <nav id="mainNav" class="main-nav" aria-label="Main navigation">
-        <a href="/" class="active">Home</a>
+      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="mainNav" class="main-nav" aria-label="Main navigation" >
+        <a href="/" >Home</a>
         <a href="/toppers.html">Toppers</a>
         <a href="/courses.html">Courses</a>
         <a href="/events.html">Events</a>
@@ -214,40 +206,7 @@
     </div>
   </section>
 
-  <!-- Students Auto-Scroll Carousel -->
-  <section class="hscroll-section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Our Bright Students</h2>
-        <p>Showcasing the talent and dedication of our student community</p>
-      </div>
-      <div id="studentsCarousel" class="hscroll">
-        <div class="track" data-direction="ltr"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Events Auto-Scroll Carousel -->
-  <section class="hscroll-section" style="background: var(--bg-secondary);">
-    <div class="container">
-      <div class="section-title">
-        <h2>Events Gallery</h2>
-        <p>Capturing memorable moments from our events and celebrations</p>
-      </div>
-      <div id="eventsCarousel" class="hscroll">
-        <div class="track" data-direction="rtl"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-
-
-</body>
-</html>
-
-
-<!-- Founder & Mentor Section -->
+  <!-- Founder & Mentor Section -->
 <section class="founder-section">
   <div class="container">
     <div class="founder-container">
@@ -270,134 +229,136 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- Footer -->
+  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-content container">
+    <div class="footer-content">
       <p><strong>Visit:</strong> Toppers Point Bajarnag colony near Sony Lodge, Ashta (M.P)</p>
       <p><strong>Phone:</strong> <a href="tel:+917869703381">+91 7869703381</a></p>
       <p><strong>Email:</strong> <a href="mailto:topperspoint@gmail.com">topperspoint@gmail.com</a></p>
-      <p class="social">
-        <a href="https://www.instagram.com/toppers_point_coaching_ashta/" target="_blank">Instagram</a> |
-        <a href="https://www.facebook.com/mewadajai777" target="_blank">Facebook</a> |
-        <a href="https://wa.me/917869703381" target="_blank">WhatsApp</a>
-      </p>
+      <div class="social">
+        <a href="https://www.instagram.com/toppers_point_coaching_ashta/" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/mewadajai777" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me/917869703381" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
       <hr>
       <p class="designer-credit">
         This website is designed by <strong>Hariom Mewada</strong> —
-        <a href="https://instagram.com/_wishmaster_hariom_" target="_blank">@_wishmaster_hariom_</a>
+        <a href="https://instagram.com/_wishmaster_hariom_" target="_blank" rel="noopener">@_wishmaster_hariom_</a>
       </p>
-      <p>© <span id="year"></span> Toppers Point Coaching. All Rights Reserved.</p>
+      <p> 2024 Toppers Point Coaching. All Rights Reserved.</p>
     </div>
   </footer>
 
+  <!-- Quick Contact Buttons -->
+  <div class="quick-contact">
+    <a href="https://wa.me/917869703381?text=Hi! I'm interested in enrolling at Toppers Point Coaching. Can you provide more information?" 
+       target="_blank" 
+       rel="noopener" 
+       class="quick-contact-btn whatsapp" 
+       aria-label="Contact via WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+      <span class="tooltip">Chat on WhatsApp</span>
+    </a>
+    <a href="tel:+917869703381" 
+       class="quick-contact-btn phone" 
+       aria-label="Call us">
+      <i class="fas fa-phone"></i>
+      <span class="tooltip">Call Us Now</span>
+    </a>
+  </div>
 
-<script>
-  // Update copyright year
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+  <script>
+    // Update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<!-- Quick Contact Buttons -->
-<div class="quick-contact">
-  <a href="https://wa.me/917869703381?text=Hi! I'm interested in enrolling at Toppers Point Coaching. Can you provide more information?" 
-     target="_blank" 
-     rel="noopener" 
-     class="quick-contact-btn whatsapp" 
-     aria-label="Contact via WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-    <span class="tooltip">Chat on WhatsApp</span>
-  </a>
-  <a href="tel:+917869703381" 
-     class="quick-contact-btn phone" 
-     aria-label="Call us">
-    <i class="fas fa-phone"></i>
-    <span class="tooltip">Call Us Now</span>
-  </a>
-</div>
+    // Initialize mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const mainNav = document.getElementById('mainNav');
+      const header = document.getElementById('navbar');
 
-<script>
-  // Initialize mobile menu functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
-    const header = document.getElementById('navbar');
-
-    // Apply header styles
-    if (header) {
-      header.style.position = 'fixed';
-      header.style.top = '0';
-      header.style.left = '0';
-      header.style.right = '0';
-    }
-
-    // Toggle mobile menu
-    function toggleMenu() {
-      if (!menuToggle || !mainNav) return;
-      
-      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', !isExpanded);
-      mainNav.classList.toggle('active');
-      menuToggle.classList.toggle('active');
-      document.body.style.overflow = isExpanded ? '' : 'hidden';
-    }
-
-    // Close menu when clicking outside
-    function closeMenu(e) {
-      if (mainNav && menuToggle && 
-          !mainNav.contains(e.target) && 
-          !menuToggle.contains(e.target)) {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.classList.remove('active');
-        mainNav.classList.remove('active');
-        document.body.style.overflow = '';
+      // Apply header styles
+      if (header) {
+        header.style.position = 'fixed';
+        header.style.top = '0';
+        header.style.left = '0';
+        header.style.right = '0';
       }
-    }
 
-    // Initialize menu toggle
-    if (menuToggle && mainNav) {
-      // Set initial state
-      menuToggle.setAttribute('aria-expanded', 'false');
-      
-      // Toggle menu on button click
-      menuToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        toggleMenu();
-      });
-      
-      // Close menu when clicking on a link
-      mainNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function() {
+      // Toggle mobile menu
+      function toggleMenu() {
+        if (!menuToggle || !mainNav) return;
+        
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        mainNav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        document.body.style.overflow = isExpanded ? '' : 'hidden';
+      }
+
+      // Close menu when clicking outside
+      function closeMenu(e) {
+        if (mainNav && menuToggle && 
+            !mainNav.contains(e.target) && 
+            !menuToggle.contains(e.target)) {
           menuToggle.setAttribute('aria-expanded', 'false');
           menuToggle.classList.remove('active');
           mainNav.classList.remove('active');
           document.body.style.overflow = '';
+        }
+      }
+
+      // Initialize menu toggle
+      if (menuToggle && mainNav) {
+        // Set initial state
+        menuToggle.setAttribute('aria-expanded', 'false');
+        
+        // Toggle menu on button click
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          toggleMenu();
         });
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', closeMenu);
-      
-      // Handle window resize
-      let resizeTimer;
-      window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-          if (window.innerWidth > 768) {
-            // Reset mobile menu on desktop
+        
+        // Close menu when clicking on a link
+        mainNav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
             menuToggle.setAttribute('aria-expanded', 'false');
             menuToggle.classList.remove('active');
             mainNav.classList.remove('active');
             document.body.style.overflow = '';
-          }
-        }, 250);
-      });
-    }
-  });
-</script>
-<script src="/js/main.js" type="module"></script>
-<script src="/js/featured.js"></script>
-
+          });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', closeMenu);
+        
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 768) {
+              // Reset mobile menu on desktop
+              menuToggle.setAttribute('aria-expanded', 'false');
+              menuToggle.classList.remove('active');
+              mainNav.classList.remove('active');
+              document.body.style.overflow = '';
+            }
+          }, 250);
+        });
+      }
+    });
+  </script>
+  <script src="/js/main.js" type="module"></script>
+  <script src="/js/featured.js"></script>
 </body>
 </html>
