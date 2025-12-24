@@ -4,15 +4,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-
-// Force Vercel to include internal mongodb files
-try { import("mongodb/lib/timeout.js").catch(() => { }); } catch (e) { }
 import fs from "fs";
 import session from "express-session";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
-import MongoStore from "connect-mongo";
 
 // Import routes
 import adminRoutes from "./routes/admin.js";
@@ -34,11 +30,11 @@ if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
 }
 
-// ✅ Path setup
+// ✅ Ensure uploads folder exists (important fix)
 const uploadsPath = path.join(__dirname, "public", "uploads");
-// Local folder creation skipped on Vercel
-if (!process.env.VERCEL && !fs.existsSync(uploadsPath)) {
+if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log("📁 Created uploads folder at:", uploadsPath);
 }
 
 // 🧩 Middlewares
@@ -63,13 +59,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(compression());
 
-// 🧱 Session Setup (Stored in MongoDB to prevent logout on Vercel)
+// 🧱 Session Setup (must be before protected routes and before serving admin.html)
 app.use(
   session({
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point",
-      ttl: 14 * 24 * 60 * 60, // 14 days
-    }),
     secret: process.env.SESSION_SECRET || "default_secret",
     resave: false,
     saveUninitialized: false,
@@ -90,30 +82,23 @@ app.get(["/admin.html", "/admin"], (req, res) => {
   return res.redirect("/admin-login.html");
 });
 
-// ✅ Serve static files
-app.use(express.static(path.join(__dirname, "public")));
-// Note: Local /uploads is served as fallback, but Cloudinary URLs are absolute
-app.use("/uploads", express.static(uploadsPath));
-
-// 🌐 MongoDB connection
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000, // Timeout after 5s
-    });
-    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
-  } catch (err) {
-    console.error("❌ DB Connection Error:", err.message);
-    // Don't exit process in production/vercel, just log it
-    if (process.env.NODE_ENV !== "production") {
-      process.exit(1);
+// ✅ Serve static files (after session) with caching
+app.use(express.static(path.join(__dirname, "public"), {
+  maxAge: process.env.STATIC_MAX_AGE || "1d",
+  setHeaders: (res, filePath) => {
+    // Cache immutable assets longer
+    if (/\.(?:css|js|png|jpe?g|webp|svg|gif)$/i.test(filePath)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     }
   }
-};
+}));
+app.use("/uploads", express.static(uploadsPath)); // serve uploaded images
 
-connectDB();
+// 🌐 MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point")
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ DB Connection Error:", err));
 
 // 📦 Routes
 app.use("/api/toppers", topperRoutes);
@@ -135,13 +120,7 @@ app.get("/healthz", (req, res) => {
 
 // 🚀 Start server
 const PORT = process.env.PORT || 5666;
-
-// Important for Vercel: only listen if not running as a serverless function
-if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
-    console.log(`📱 Frontend available at http://localhost:${PORT}`);
-  });
-}
-
-export default app;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`📱 Frontend available at http://localhost:${PORT}`);
+});

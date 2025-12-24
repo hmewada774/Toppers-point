@@ -615,16 +615,14 @@
         const pamphlets = await res.json();
         const container = document.getElementById('pamphlets-list');
         container.innerHTML = '';
-        pamphlets.forEach(p => {
-          const src = p.path || p;
-          const id = p._id || '';
+        pamphlets.forEach(src => {
           const card = document.createElement('div');
           card.className = 'item-card';
           card.innerHTML = `
           <img src="${src}" alt="Pamphlet" onerror="this.src='/images/logo.png'">
           <div class="item-actions">
             <form action="/admin/home/pamphlets/delete" method="POST" onsubmit="return confirm('Delete this pamphlet?')" style="margin: 0; width: 100%;">
-              <input type="hidden" name="id" value="${id}">
+              <input type="hidden" name="path" value="${src}">
               <button type="submit" class="btn delete-btn btn-small" style="width: 100%;">Delete</button>
             </form>
           </div>
