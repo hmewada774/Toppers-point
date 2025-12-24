@@ -101,7 +101,8 @@
   display: block;
   height: 3px;
   width: 100%;
-  background: var(--primary, #1e3a8a);
+  background: #1e3a8a !important;
+  /* Force primary blue */
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -111,6 +112,7 @@
   .menu-toggle {
     display: flex;
   }
+
 
   /* Increase specificity to override conflicting styles */
   .navbar .main-nav,
@@ -128,9 +130,11 @@
     align-items: center;
     gap: 2rem;
 
-    /* Use transform instead of right property for better performance and to avoid overflow */
+    /* Use transform for animation, but manage visibility to prevent overflow scrolling */
     transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    /* Hide completely when closed */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s step-end;
 
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     padding: 6rem 1rem 2rem;
@@ -141,6 +145,9 @@
 
   .main-nav.active {
     transform: translateX(0) !important;
+    visibility: visible;
+    /* Show when active */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s step-start;
   }
 
   .main-nav a {

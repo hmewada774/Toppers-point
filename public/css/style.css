@@ -2005,10 +2005,8 @@ section {
 .footer,
 .main-footer {
   background: #1e40af;
-  /* Darker blue background */
   color: #ffffff;
-  padding: 2.5rem 0;
-  /* Adjusted padding */
+  padding: 3rem 1rem;
   font-size: 1rem;
   line-height: 1.8;
   margin-top: 4rem;
@@ -2016,12 +2014,15 @@ section {
   width: 100%;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
   position: relative;
-  overflow: hidden;
-  min-height: 200px;
-  /* Ensure minimum height */
+  overflow: visible;
+  /* Allow content to be seen if it overflows, though flex should handle it */
+  min-height: auto;
+  /* Remove fixed min-height constraints if they cause issues */
   display: flex;
+  flex-direction: column;
+  /* Ensure vertical stacking */
   align-items: center;
-  /* Center content vertically */
+  justify-content: center;
 }
 
 /* Remove the pattern overlay */
@@ -2029,90 +2030,44 @@ section {
   content: none;
 }
 
+
 .footer-content,
-.footer-content p,
-.footer-content a,
-.footer-content strong {
-  color: #000000 !important;
-  opacity: 0.9 !important;
-}
-
-.footer-content a:hover {
-  color: #000000 !important;
-  opacity: 1 !important;
-  text-decoration: underline;
-}
-
-.footer-content {
-  max-width: 900px;
-  /* Slightly reduced max-width for better readability */
-  margin: 0 auto;
-  padding: 0.5rem var(--spacing-md);
-  /* Reduced vertical padding */
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-}
-
 .footer-content p {
-  margin: 0.4rem 0;
-  /* Reduced margin between lines */
-  color: #000000;
-  font-size: 1rem;
-  /* Slightly reduced font size */
-  font-weight: 400;
-  line-height: 1.6;
+  color: #ffffff !important;
   opacity: 0.95;
+}
+
+.footer-content strong {
+  color: #ffffff !important;
+  font-weight: 600;
 }
 
 .footer-content a {
-  color: #000000;
+  color: #ffffff !important;
   text-decoration: none;
   transition: all 0.2s ease;
   padding: 0.15rem 0.4rem;
-  /* Slightly reduced padding */
   font-weight: 500;
   display: inline-block;
   margin: 0 0.15rem;
-  /* Reduced margin */
   border-radius: 3px;
   position: relative;
-  opacity: 0.95;
-  font-size: 0.95rem;
-  /* Slightly smaller font for links */
+  opacity: 1;
 }
 
 .footer-content a:hover {
-  color: #ffffff;
+  color: #f97316 !important;
+  /* Orange hover */
   opacity: 1;
-  text-decoration: underline;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .footer-content a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: var(--primary);
-  transition: width 0.3s ease;
+  content: none;
+  /* simple link style */
 }
 
-.footer-content a:hover::after {
-  width: 100%;
-}
-
-.footer-content a:hover {
-  text-decoration: none;
-  opacity: 0.8;
-}
-
-.footer-content strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
 
 .footer-content .social {
   margin: 1rem 0;
@@ -2138,6 +2093,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll from mobile menu */
 }
 
 body {

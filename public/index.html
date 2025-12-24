@@ -79,20 +79,23 @@
 
 <body class="home-page">
   <!-- Header -->
+  <!-- Header -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="/" class="brand-link" aria-label="Toppers Point Home">
-        <img src="/images/logo.png" alt="Toppers Point Coaching logo" class="logo" loading="lazy">
+        <img src="/images/logo.png" alt="Toppers Point Logo" class="logo" loading="lazy">
       </a>
-      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
       <nav id="mainNav" class="main-nav" aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="/toppers.html">Toppers</a>
-        <a href="/courses.html">Courses</a>
-        <a href="/events.html">Events</a>
-        <a href="/contact.html">Contact</a>
+        <a href="/" data-route="/">Home</a>
+        <a href="/toppers.html" data-route="/toppers.html">Toppers</a>
+        <a href="/courses.html" data-route="/courses.html">Courses</a>
+        <a href="/events.html" data-route="/events.html">Events</a>
+        <a href="/contact.html" data-route="/contact.html">Contact</a>
       </nav>
     </div>
   </header>
