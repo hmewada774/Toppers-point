@@ -170,3 +170,26 @@
     transform: translateY(-9px) rotate(-45deg);
   }
 }
+
+/* Mobile nav overlay */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s ease;
+}
+
+.nav-overlay.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Lock body scroll when mobile menu open */
+body.lock {
+  overflow: hidden;
+  height: 100vh;
+  height: 100dvh;
+}

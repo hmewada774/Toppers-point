@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Courses - Toppers Point Coaching | Ashta, MP</title>
   <meta name="description"
     content="Explore our courses for Classes 8 to 12 in Science, Commerce, and Arts at Toppers Point Coaching, Ashta. Board & competitive exam focused coaching." />
@@ -336,7 +336,9 @@
 
   <!-- JS -->
   <script>
-    document.getElementById('year').innerText = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
+    if (document.getElementById('year')) document.getElementById('year').innerText = currentYear;
+    if (document.getElementById('footerYear')) document.getElementById('footerYear').innerText = currentYear;
 
     const scrollBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', () => {

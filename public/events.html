@@ -85,28 +85,31 @@
       </nav>
     </div>
   </header>
+  <main>
 
-  <section class="events-section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Our Events</h2>
-        <p>Celebrating achievements, fostering community, and creating memorable experiences</p>
-      </div>
 
-      <div id="eventsContainer" class="grid grid-3">
-        <div class="loading">
-          <div class="spinner"></div>
+    <section class="events-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Our Events</h2>
+          <p>Celebrating achievements, fostering community, and creating memorable experiences</p>
+        </div>
+
+        <div id="eventsContainer" class="grid grid-3">
+          <div class="loading">
+            <div class="spinner"></div>
+          </div>
+        </div>
+
+        <div id="noEvents" style="display: none; text-align: center; padding: 3rem; color: var(--text-secondary);">
+          <i class="fas fa-calendar-times" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+          <h3>No events found</h3>
+          <p>Check back later for upcoming events.</p>
         </div>
       </div>
+    </section>
 
-      <div id="noEvents" style="display: none; text-align: center; padding: 3rem; color: var(--text-secondary);">
-        <i class="fas fa-calendar-times" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-        <h3>No events found</h3>
-        <p>Check back later for upcoming events.</p>
-      </div>
-    </div>
-  </section>
-
+  </main>
   <footer class="footer">
     <div class="footer-content">
       <p><strong>Visit:</strong> Toppers Point Bajarnag colony near Sony Lodge, Ashta (M.P)</p>
@@ -151,7 +154,10 @@
 
   <script src="/js/main.js"></script>
   <script>
-    document.getElementById('year').innerText = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
+    if (document.getElementById('year')) document.getElementById('year').innerText = currentYear;
+    if (document.getElementById('footerYear')) document.getElementById('footerYear').innerText = currentYear;
+
 
     // Mobile menu toggle logic removed (handled by main.js)
 
@@ -195,12 +201,12 @@
             const card = document.createElement('div');
             card.className = 'card event-card fade-in';
             card.innerHTML = `
-            <img src="${e.image}" alt="${e.title}" loading="lazy">
-            <div class="event-info">
-              <span class="event-date">${e.year}</span>
-              <h3>${e.title}</h3>
-              ${e.description ? `<p style="color: var(--text-secondary); margin-top: 0.5rem;">${e.description}</p>` : ''}
-            </div>
+      <img src="${e.image}" alt="${e.title}" loading="lazy">
+        <div class="event-info">
+          <span class="event-date">${e.year}</span>
+          <h3>${e.title}</h3>
+          ${e.description ? `<p style="color: var(--text-secondary); margin-top: 0.5rem;">${e.description}</p>` : ''}
+        </div>
           `;
             container.appendChild(card);
           });

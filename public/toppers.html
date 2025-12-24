@@ -85,56 +85,59 @@
       </nav>
     </div>
   </header>
+  <main>
 
-  <section class="toppers-section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Our Toppers</h2>
-        <p>Celebrating excellence and outstanding achievements of our students</p>
-      </div>
 
-      <div class="filter-box">
-        <label for="classFilter">
-          <i class="fas fa-filter"></i> Class:
-        </label>
-        <select id="classFilter">
-          <option value="all">All Classes</option>
-          <option value="8">Class 8</option>
-          <option value="9">Class 9</option>
-          <option value="10">Class 10</option>
-          <option value="11">Class 11</option>
-          <option value="12">Class 12</option>
-        </select>
+    <section class="toppers-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Our Toppers</h2>
+          <p>Celebrating excellence and outstanding achievements of our students</p>
+        </div>
 
-        <label for="yearFilter">
-          <i class="fas fa-calendar"></i> Year:
-        </label>
-        <select id="yearFilter">
-          <option value="all">All Years</option>
-        </select>
+        <div class="filter-box">
+          <label for="classFilter">
+            <i class="fas fa-filter"></i> Class:
+          </label>
+          <select id="classFilter">
+            <option value="all">All Classes</option>
+            <option value="8">Class 8</option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+          </select>
 
-        <label for="subjectFilter" id="subjectLabel">
-          <i class="fas fa-book"></i> Subject:
-        </label>
-        <select id="subjectFilter">
-          <option value="all">All Subjects</option>
-        </select>
-      </div>
+          <label for="yearFilter">
+            <i class="fas fa-calendar"></i> Year:
+          </label>
+          <select id="yearFilter">
+            <option value="all">All Years</option>
+          </select>
 
-      <div id="toppersContainer" class="grid grid-4">
-        <div class="loading">
-          <div class="spinner"></div>
+          <label for="subjectFilter" id="subjectLabel">
+            <i class="fas fa-book"></i> Subject:
+          </label>
+          <select id="subjectFilter">
+            <option value="all">All Subjects</option>
+          </select>
+        </div>
+
+        <div id="toppersContainer" class="grid grid-4">
+          <div class="loading">
+            <div class="spinner"></div>
+          </div>
+        </div>
+
+        <div id="noResults" style="display: none; text-align: center; padding: 3rem; color: var(--text-secondary);">
+          <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+          <h3>No toppers found</h3>
+          <p>Try adjusting your filters to see more results.</p>
         </div>
       </div>
+    </section>
 
-      <div id="noResults" style="display: none; text-align: center; padding: 3rem; color: var(--text-secondary);">
-        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-        <h3>No toppers found</h3>
-        <p>Try adjusting your filters to see more results.</p>
-      </div>
-    </div>
-  </section>
-
+  </main>
   <footer class="footer">
     <div class="footer-content">
       <p><strong>Visit:</strong> Toppers Point Bajarnag colony near Sony Lodge, Ashta (M.P)</p>
@@ -180,7 +183,10 @@
 
   <script src="/js/main.js"></script>
   <script>
-    document.getElementById('year').innerText = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
+    if (document.getElementById('year')) document.getElementById('year').innerText = currentYear;
+    if (document.getElementById('footerYear')) document.getElementById('footerYear').innerText = currentYear;
+
 
     // Mobile menu toggle logic removed (handled by main.js)
 

@@ -1794,10 +1794,7 @@ section {
   /* Reduced top margin */
   margin-top: 30px;
 
-  /* Lift text upward */
   padding: 25px 20px 10px 20px;
-  padding-bottom: 120px !important;
-  /* top = 25px, left-right = 20px, bottom = 10px */
 
   text-align: center;
   font-family: 'Poppins', sans-serif;

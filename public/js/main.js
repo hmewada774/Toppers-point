@@ -53,6 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         document.body.appendChild(footerFromFile);
       }
+
+      // Update year after injection
+      const yearEl = footerFromFile.querySelector('#footerYear') || footerFromFile.querySelector('#year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
     })
     .catch(() => { });
 });
