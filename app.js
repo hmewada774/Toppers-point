@@ -9,6 +9,7 @@ import session from "express-session";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
+import MongoStore from "connect-mongo";
 
 // Import routes
 import adminRoutes from "./routes/admin.js";
@@ -65,9 +66,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(compression());
 
-// 🧱 Session Setup (must be before protected routes and before serving admin.html)
+// 🧱 Session Setup (Stored in MongoDB to prevent logout on Vercel)
 app.use(
   session({
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point",
+      ttl: 14 * 24 * 60 * 60, // 14 days
+    }),
     secret: process.env.SESSION_SECRET || "default_secret",
     resave: false,
     saveUninitialized: false,
