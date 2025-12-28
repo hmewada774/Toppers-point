@@ -120,7 +120,13 @@ app.get("/healthz", (req, res) => {
 
 // 🚀 Start server
 const PORT = process.env.PORT || 5666;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-  console.log(`📱 Frontend available at http://localhost:${PORT}`);
-});
+
+// Important for Vercel: only listen if not running as a serverless function
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`📱 Frontend available at http://localhost:${PORT}`);
+  });
+}
+
+export default app;
