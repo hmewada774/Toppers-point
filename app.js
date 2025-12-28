@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+
+// Force Vercel to include internal mongodb files
+try { import("mongodb/lib/timeout.js").catch(() => { }); } catch (e) { }
 import fs from "fs";
 import session from "express-session";
 import cors from "cors";
