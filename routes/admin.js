@@ -8,6 +8,7 @@ import Event from "../models/Event.js";
 import Faculty from "../models/Faculty.js";
 import Founder from "../models/Founder.js";
 import Video from "../models/Video.js";
+import Pamphlet from "../models/Pamphlet.js";
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
@@ -69,15 +70,25 @@ router.post("/founder/delete/:id", async (req, res) => {
   } catch (e) { console.error(e); return res.status(500).send("Error deleting founder"); }
 });
 
-// 🗑️ Delete pamphlet by file path (relative within uploads/pamphlets)
+// 🗑️ Delete pamphlet by ID
 router.post("/home/pamphlets/delete", async (req, res) => {
   try {
-    const rel = (req.body && req.body.path) || ""; // expected like /uploads/pamphlets/xyz.jpg
-    if (!rel.startsWith("/uploads/pamphlets/")) return res.status(400).send("Bad path");
-    const abs = path.join(__dirname, "../public", rel);
-    if (abs.startsWith(pamphletsDir) && fs.existsSync(abs)) fs.unlinkSync(abs);
+    const { id } = req.body;
+    if (!id) return res.status(400).send("No ID provided");
+
+    const doc = await Pamphlet.findById(id);
+    if (!doc) return res.status(404).send("Not found");
+
+    // Note: Optionally delete from Cloudinary here
+    // const publicId = doc.path.split('/').pop().split('.')[0];
+    // await cloudinary.uploader.destroy(`toppers-point/pamphlets/${publicId}`);
+
+    await Pamphlet.findByIdAndDelete(id);
     return res.redirect("/admin");
-  } catch (e) { console.error(e); return res.status(500).send("Error deleting pamphlet"); }
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send("Error deleting pamphlet");
+  }
 });
 
 const eventsStorage = new CloudinaryStorage({
@@ -242,6 +253,10 @@ router.post("/pamphlet/upload", uploadPamphlet.single("image"), async (req, res)
     }
 
     const imagePath = req.file ? req.file.path : "";
+    if (imagePath) {
+      const p = new Pamphlet({ path: imagePath });
+      await p.save();
+    }
 
     if (isAjax) {
       return res.json({

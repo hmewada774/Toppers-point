@@ -29,32 +29,25 @@
 import express from 'express';
 import Event from '../models/Event.js';
 import multer from 'multer';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "topperspoint",
+  api_key: process.env.CLOUDINARY_API_KEY || "723391789564995",
+  api_secret: process.env.CLOUDINARY_API_SECRET || "x-K6pTTMk9YVfLfxd-6nwS6Xzs4"
+});
 
 const router = express.Router();
 
-// Ensure uploads directory exists
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const uploadsDir = path.join(__dirname, '../public/uploads/events');
-if (!process.env.VERCEL && !fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'toppers-point/events',
+    allowed_formats: ['jpg', 'png', 'webp', 'jpeg'],
+  },
 });
-const upload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const ok = ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype);
-    cb(ok ? null : new Error("Only images are allowed"), ok);
-  }
-});
+const upload = multer({ storage });
 
 router.get('/', async (req, res) => {
   const events = await Event.find();
@@ -72,7 +65,7 @@ router.post('/add', upload.single('image'), async (req, res) => {
     const ev = new Event({
       title,
       year,
-      image: req.file ? `/uploads/events/${req.file.filename}` : ''
+      image: req.file ? req.file.path : ''
     });
     await ev.save();
     // If browser form submitted, redirect back to admin

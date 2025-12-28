@@ -275,7 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       wrap.innerHTML = '';
-      items.forEach(src => {
+      items.forEach(item => {
+        const src = item.path || item;
         const card = document.createElement('div');
         card.className = 'card fade-in pamphlet-card';
 
