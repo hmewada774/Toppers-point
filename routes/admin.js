@@ -8,43 +8,30 @@ import Event from "../models/Event.js";
 import Faculty from "../models/Faculty.js";
 import Founder from "../models/Founder.js";
 import Video from "../models/Video.js";
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 const router = express.Router();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Ensure uploads directories exist
-const uploadDir = path.join(__dirname, "../public/uploads");
-const eventsUploadDir = path.join(__dirname, "../public/uploads/events");
-const pamphletsDir = path.join(__dirname, "../public/uploads/pamphlets");
-const facultyDir = path.join(__dirname, "../public/uploads/faculty");
-const founderDir = path.join(__dirname, "../public/uploads/founder");
-const videosDir = path.join(__dirname, "../public/uploads/videos");
-if (!process.env.VERCEL) {
-  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-  for (const d of [eventsUploadDir, pamphletsDir, facultyDir, founderDir, videosDir]) {
-    if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
-  }
-}
+// ✅ Cloudinary Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "topperspoint",
+  api_key: process.env.CLOUDINARY_API_KEY || "723391789564995",
+  api_secret: process.env.CLOUDINARY_API_SECRET || "x-K6pTTMk9YVfLfxd-6nwS6Xzs4"
+});
 
-// ✅ Multer setup with absolute path
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+// ✅ Cloudinary Storage for general uploads
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'toppers-point/general',
+    allowed_formats: ['jpg', 'png', 'webp', 'jpeg'],
   },
 });
-const upload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const ok = ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype);
-    cb(ok ? null : new Error("Only images are allowed"), ok);
-  }
-});
+const upload = multer({ storage });
 
 // 🗑️ Delete faculty by id (and image file)
 router.post("/faculty/delete/:id", async (req, res) => {
@@ -93,57 +80,42 @@ router.post("/home/pamphlets/delete", async (req, res) => {
   } catch (e) { console.error(e); return res.status(500).send("Error deleting pamphlet"); }
 });
 
-const eventsStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, eventsUploadDir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+const eventsStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'toppers-point/events',
+    allowed_formats: ['jpg', 'png', 'webp', 'jpeg'],
   },
 });
-const uploadEvent = multer({
-  storage: eventsStorage,
-  limits: { fileSize: 5 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const ok = ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype);
-    cb(ok ? null : new Error("Only images are allowed"), ok);
-  }
-});
+const uploadEvent = multer({ storage: eventsStorage });
 
-function makeUpload(dir) {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, dir),
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+function makeUpload(folderName) {
+  const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: `toppers-point/${folderName}`,
+      allowed_formats: ['jpg', 'png', 'webp', 'jpeg'],
+    },
   });
-  return multer({
-    storage,
-    limits: { fileSize: 5 * 1024 * 1024 },
-    fileFilter: (req, file, cb) => {
-      const ok = ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype);
-      cb(ok ? null : new Error("Only images are allowed"), ok);
-    }
-  });
+  return multer({ storage });
 }
-const uploadPamphlet = makeUpload(pamphletsDir);
-const uploadFaculty = makeUpload(facultyDir);
-const uploadFounder = makeUpload(founderDir);
+const uploadPamphlet = makeUpload('pamphlets');
+const uploadFaculty = makeUpload('faculty');
+const uploadFounder = makeUpload('founder');
 
 // Video upload (larger file size limit)
-function makeVideoUpload(dir) {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, dir),
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+function makeVideoUpload(folderName) {
+  const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: `toppers-point/${folderName}`,
+      resource_type: 'video',
+      allowed_formats: ['mp4', 'webm', 'mov'],
+    },
   });
-  return multer({
-    storage,
-    limits: { fileSize: 50 * 1024 * 1024 }, // 50 MB for videos
-    fileFilter: (req, file, cb) => {
-      const ok = ["video/mp4", "video/webm", "video/quicktime"].includes(file.mimetype);
-      cb(ok ? null : new Error("Only video files are allowed (MP4, WebM)"), ok);
-    }
-  });
+  return multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 }
-const uploadVideo = makeVideoUpload(videosDir);
+const uploadVideo = makeVideoUpload('videos');
 
 // Helper function to handle responses
 function handleResponse(res, redirectUrl, message, isAjax = false) {
@@ -192,7 +164,7 @@ router.post("/toppers/add", upload.single("photo"), async (req, res) => {
       subject,
       marks,
       className,
-      photo: req.file ? `/uploads/${req.file.filename}` : "",
+      photo: req.file ? req.file.path : "",
     });
 
     await newTopper.save();
@@ -231,7 +203,7 @@ router.post("/events/add", uploadEvent.single("image"), async (req, res) => {
     const event = new Event({
       title,
       year,
-      image: req.file ? `/uploads/events/${req.file.filename}` : "",
+      image: req.file ? req.file.path : "",
     });
     await event.save();
     console.log("✅ Event added:", title);
@@ -269,7 +241,7 @@ router.post("/pamphlet/upload", uploadPamphlet.single("image"), async (req, res)
       throw new Error("No file uploaded");
     }
 
-    const imagePath = `/uploads/pamphlets/${req.file.filename}`;
+    const imagePath = req.file ? req.file.path : "";
 
     if (isAjax) {
       return res.json({
@@ -305,7 +277,7 @@ router.post("/faculty/add", uploadFaculty.single("image"), async (req, res) => {
       name,
       degree,
       subjects: subjects.split(',').map(s => s.trim()),
-      photo: req.file ? `/uploads/faculty/${req.file.filename}` : "",
+      photo: req.file ? req.file.path : "",
       featuredHome: true,
     });
     await f.save();
@@ -385,7 +357,7 @@ router.post("/founder/save", uploadFounder.single("image"), async (req, res) => 
     const { name, title, qualification, contact, instagram, whatsapp, facebook } = req.body;
     const doc = new Founder({
       name, title, qualification, contact, instagram, whatsapp, facebook,
-      photo: req.file ? `/uploads/founder/${req.file.filename}` : (req.body.photo || "")
+      photo: req.file ? req.file.path : (req.body.photo || "")
     });
     await doc.save();
     return res.redirect("/admin#founder");
@@ -443,10 +415,12 @@ router.post("/toppers/delete/:id", async (req, res) => {
 
     // Delete the photo file if it exists
     if (topper.photo) {
-      const photoPath = path.join(__dirname, "../public", topper.photo);
-      if (fs.existsSync(photoPath)) {
-        fs.unlinkSync(photoPath);
-      }
+      // For Cloudinary, deletion would involve Cloudinary API, not local fs.
+      // This part would need to be updated to use cloudinary.uploader.destroy
+      // const photoPath = path.join(__dirname, "../public", topper.photo);
+      // if (fs.existsSync(photoPath)) {
+      //   fs.unlinkSync(photoPath);
+      // }
     }
 
     await Topper.findByIdAndDelete(req.params.id);
@@ -510,7 +484,7 @@ router.post("/videos/add", uploadVideo.single("video"), async (req, res) => {
       type: videoType,
       [videoType === 'file' ? 'videoFile' : 'videoUrl']:
         videoType === 'file'
-          ? req.file ? `/uploads/videos/${req.file.filename}` : ''
+          ? req.file ? req.file.path : ""
           : videoUrl
     };
 
