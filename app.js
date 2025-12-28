@@ -31,17 +31,11 @@ if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
 }
 
-// ✅ Ensure uploads folder exists (Skip on Vercel as it's read-only)
+// ✅ Path setup
 const uploadsPath = path.join(__dirname, "public", "uploads");
-if (!process.env.VERCEL) {
-  if (!fs.existsSync(uploadsPath)) {
-    try {
-      fs.mkdirSync(uploadsPath, { recursive: true });
-      console.log("📁 Created uploads folder at:", uploadsPath);
-    } catch (err) {
-      console.error("❌ Failed to create uploads folder:", err.message);
-    }
-  }
+// Local folder creation skipped on Vercel
+if (!process.env.VERCEL && !fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
 }
 
 // 🧩 Middlewares
@@ -93,17 +87,10 @@ app.get(["/admin.html", "/admin"], (req, res) => {
   return res.redirect("/admin-login.html");
 });
 
-// ✅ Serve static files (after session) with caching
-app.use(express.static(path.join(__dirname, "public"), {
-  maxAge: process.env.STATIC_MAX_AGE || "1d",
-  setHeaders: (res, filePath) => {
-    // Cache immutable assets longer
-    if (/\.(?:css|js|png|jpe?g|webp|svg|gif)$/i.test(filePath)) {
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    }
-  }
-}));
-app.use("/uploads", express.static(uploadsPath)); // serve uploaded images
+// ✅ Serve static files
+app.use(express.static(path.join(__dirname, "public")));
+// Note: Local /uploads is served as fallback, but Cloudinary URLs are absolute
+app.use("/uploads", express.static(uploadsPath));
 
 // 🌐 MongoDB connection
 const connectDB = async () => {
