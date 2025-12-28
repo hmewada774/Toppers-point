@@ -30,11 +30,17 @@ if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
 }
 
-// ✅ Ensure uploads folder exists (important fix)
+// ✅ Ensure uploads folder exists (Skip on Vercel as it's read-only)
 const uploadsPath = path.join(__dirname, "public", "uploads");
-if (!fs.existsSync(uploadsPath)) {
-  fs.mkdirSync(uploadsPath, { recursive: true });
-  console.log("📁 Created uploads folder at:", uploadsPath);
+if (!process.env.VERCEL) {
+  if (!fs.existsSync(uploadsPath)) {
+    try {
+      fs.mkdirSync(uploadsPath, { recursive: true });
+      console.log("📁 Created uploads folder at:", uploadsPath);
+    } catch (err) {
+      console.error("❌ Failed to create uploads folder:", err.message);
+    }
+  }
 }
 
 // 🧩 Middlewares
@@ -95,10 +101,24 @@ app.use(express.static(path.join(__dirname, "public"), {
 app.use("/uploads", express.static(uploadsPath)); // serve uploaded images
 
 // 🌐 MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point")
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ DB Connection Error:", err));
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s
+    });
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+  } catch (err) {
+    console.error("❌ DB Connection Error:", err.message);
+    // Don't exit process in production/vercel, just log it
+    if (process.env.NODE_ENV !== "production") {
+      process.exit(1);
+    }
+  }
+};
+
+connectDB();
 
 // 📦 Routes
 app.use("/api/toppers", topperRoutes);
