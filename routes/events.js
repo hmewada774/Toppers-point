@@ -39,7 +39,9 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadsDir = path.join(__dirname, '../public/uploads/events');
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+if (!process.env.VERCEL && !fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsDir),
@@ -65,7 +67,7 @@ router.post('/add', upload.single('image'), async (req, res) => {
   if (!(req.session && req.session.user)) {
     return res.status(401).json({ success: false, message: 'Unauthorized' });
   }
-  try{
+  try {
     const { title, year } = req.body;
     const ev = new Event({
       title,
@@ -77,10 +79,10 @@ router.post('/add', upload.single('image'), async (req, res) => {
     if (req.headers['content-type']?.includes('multipart/form-data')) {
       return res.redirect('/admin');
     }
-    res.json({ success:true, event: ev });
-  }catch(err){
+    res.json({ success: true, event: ev });
+  } catch (err) {
     console.error(err);
-    res.status(500).json({ success:false, message:'Failed to add event' });
+    res.status(500).json({ success: false, message: 'Failed to add event' });
   }
 });
 
