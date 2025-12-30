@@ -19,7 +19,7 @@ async function loadToppers() {
         <form action="/admin/home/toppers/${t.featuredHome ? 'unfeature' : 'feature'}/${t._id}" method="POST">
           <button type="submit" class="btn-primary">${t.featuredHome ? 'Unfeature Home' : 'Feature Home'}</button>
         </form>
-        <form action="/admin/delete/${t._id}" method="POST" onsubmit="return confirm('Delete this topper?')">
+        <form action="/admin/toppers/delete/${t._id}" method="POST" onsubmit="return confirm('Delete this topper?')">
           <button type="submit" class="delete-btn">Delete</button>
         </form>
       </div>

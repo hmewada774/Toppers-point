@@ -379,7 +379,7 @@
     <div id="pamphlets" class="tab-content">
       <div class="admin-section">
         <h2><i class="fas fa-plus-circle"></i> Add Pamphlet</h2>
-        <form action="/admin/home/pamphlets/add" method="POST" enctype="multipart/form-data" class="admin-form">
+        <form action="/admin/pamphlet/upload" method="POST" enctype="multipart/form-data" class="admin-form">
           <div class="file-upload-wrapper">
             <label for="pamphletImage" class="file-upload-label">
               <i class="fas fa-cloud-upload-alt"></i>
@@ -538,7 +538,7 @@
             <form action="/admin/home/toppers/${t.featuredHome ? 'unfeature' : 'feature'}/${t._id}" method="POST" style="margin: 0;">
               <button type="submit" class="btn btn-secondary btn-small">${t.featuredHome ? 'Unfeature' : 'Feature'}</button>
             </form>
-            <form action="/admin/delete/${t._id}" method="POST" onsubmit="return confirm('Delete this topper?')" style="margin: 0;">
+            <form action="/admin/toppers/delete/${t._id}" method="POST" onsubmit="return confirm('Delete this topper?')" style="margin: 0;">
               <button type="submit" class="btn delete-btn btn-small">Delete</button>
             </form>
           </div>
