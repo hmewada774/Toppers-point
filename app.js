@@ -103,24 +103,34 @@ app.use('/admin', async (req, res, next) => {
 });
 
 // 🧱 Session Setup (must be before protected routes and before serving admin.html)
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "default_secret",
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
+// Use memory store for development, MongoStore for production
+const sessionConfig = {
+  secret: process.env.SESSION_SECRET || "default_secret",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 8,
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  },
+};
+
+// Only use MongoStore if MONGO_URI is provided
+if (MONGO_URI && MONGO_URI !== "mongodb://127.0.0.1:27017/toppers_point") {
+  try {
+    sessionConfig.store = MongoStore.create({
       mongoUrl: MONGO_URI,
-      ttl: 24 * 60 * 60, // 1 day
-      autoRemove: 'native'
-    }),
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 8,
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-    },
-  })
-);
+      ttl: 24 * 60 * 60,
+      autoRemove: 'native',
+      touchAfter: 24 * 3600 // lazy session update
+    });
+  } catch (err) {
+    console.warn("⚠️ Could not create MongoStore, using memory store:", err.message);
+  }
+}
+
+app.use(session(sessionConfig));
 
 // Protect direct access to admin.html before static middleware
 app.get(["/admin.html", "/admin"], (req, res) => {
