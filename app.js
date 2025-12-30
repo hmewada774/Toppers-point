@@ -118,6 +118,11 @@ app.get("/healthz", (req, res) => {
   res.status(200).json({ ok: true, uptime: process.uptime(), env: process.env.NODE_ENV || 'development' });
 });
 
+// 🔔 Ping endpoint to keep server awake (for UptimeRobot, Cron-job.org, etc.)
+app.get("/ping", (req, res) => {
+  res.send("ok");
+});
+
 // 🚀 Start server
 const PORT = process.env.PORT || 5666;
 app.listen(PORT, () => {
