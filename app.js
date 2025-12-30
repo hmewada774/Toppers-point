@@ -18,8 +18,30 @@ import contactRoutes from "./routes/contact.js";
 import authRoutes from "./routes/auth.js";
 import homeRoutes from "./routes/home.js";
 
+import MongoStore from "connect-mongo";
+
 dotenv.config();
 const app = express();
+
+
+// 🌐 MongoDB connection (Cached for serverless)
+let isConnected = false;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point";
+
+const connectDB = async () => {
+  if (isConnected) return;
+  try {
+    const db = await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    isConnected = db.connections[0].readyState;
+    console.log("✅ MongoDB Connected");
+  } catch (err) {
+    console.error("❌ DB Connection Error:", err);
+  }
+};
+connectDB();
 
 // Fix __dirname and __filename for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -65,6 +87,11 @@ app.use(
     secret: process.env.SESSION_SECRET || "default_secret",
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: MONGO_URI,
+      ttl: 24 * 60 * 60, // 1 day
+      autoRemove: 'native'
+    }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 8,
       httpOnly: true,
@@ -94,11 +121,7 @@ app.use(express.static(path.join(__dirname, "public"), {
 }));
 app.use("/uploads", express.static(uploadsPath)); // serve uploaded images
 
-// 🌐 MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point")
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ DB Connection Error:", err));
+
 
 // 📦 Routes
 app.use("/api/toppers", topperRoutes);
@@ -118,9 +141,13 @@ app.get("/healthz", (req, res) => {
   res.status(200).json({ ok: true, uptime: process.uptime(), env: process.env.NODE_ENV || 'development' });
 });
 
-// 🚀 Start server
-const PORT = process.env.PORT || 5666;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-  console.log(`📱 Frontend available at http://localhost:${PORT}`);
-});
+// 🚀 Start server (only if not running on Vercel)
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5666;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`📱 Frontend available at http://localhost:${PORT}`);
+  });
+}
+
+export default app;
