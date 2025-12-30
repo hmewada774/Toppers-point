@@ -31,17 +31,32 @@ const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_po
 const connectDB = async () => {
   if (isConnected) return;
   try {
+    // Set strictQuery for Mongoose 7+
+    mongoose.set('strictQuery', false);
+
     const db = await mongoose.connect(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s
     });
-    isConnected = db.connections[0].readyState;
+    isConnected = db.connections[0].readyState === 1;
     console.log("✅ MongoDB Connected");
   } catch (err) {
     console.error("❌ DB Connection Error:", err);
+    // don't set isConnected to true if failed
+    throw err;
   }
 };
-connectDB();
+
+// Middleware to ensure DB is connected before handling requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ error: "Database connection failed", details: process.env.NODE_ENV === 'development' ? err.message : undefined });
+  }
+});
 
 // Fix __dirname and __filename for ES modules
 const __filename = fileURLToPath(import.meta.url);
