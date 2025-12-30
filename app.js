@@ -18,8 +18,6 @@ import contactRoutes from "./routes/contact.js";
 import authRoutes from "./routes/auth.js";
 import homeRoutes from "./routes/home.js";
 
-import MongoStore from "connect-mongo";
-
 dotenv.config();
 const app = express();
 
@@ -28,17 +26,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Trust reverse proxy (needed on Render/Heroku/Vercel for secure cookies and correct IPs)
-app.set("trust proxy", 1);
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 
-// ✅ Ensure uploads folder exists (skip in serverless)
+// ✅ Ensure uploads folder exists (important fix)
 const uploadsPath = path.join(__dirname, "public", "uploads");
-try {
-  if (!fs.existsSync(uploadsPath)) {
-    fs.mkdirSync(uploadsPath, { recursive: true });
-    console.log("📁 Created uploads folder at:", uploadsPath);
-  }
-} catch (err) {
-  console.log("⚠️ Could not create uploads folder (serverless environment):", err.message);
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log("📁 Created uploads folder at:", uploadsPath);
 }
 
 // 🧩 Middlewares
@@ -63,74 +59,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(compression());
 
-// 🌐 MongoDB connection (Cached for serverless)
-let isConnected = false;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point";
-
-const connectDB = async () => {
-  if (isConnected) return;
-  try {
-    mongoose.set('strictQuery', false);
-    const db = await mongoose.connect(MONGO_URI, {
-      serverSelectionTimeoutMS: 10000,
-      socketTimeoutMS: 45000,
-    });
-    isConnected = db.connections[0].readyState === 1;
-    console.log("✅ MongoDB Connected");
-  } catch (err) {
-    console.error("❌ DB Connection Error:", err);
-    throw err;
-  }
-};
-
-// Middleware to ensure DB is connected (only for API routes)
-app.use('/api', async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    res.status(500).json({ error: "Database connection failed", message: err.message });
-  }
-});
-
-app.use('/admin', async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    res.status(500).json({ error: "Database connection failed", message: err.message });
-  }
-});
-
 // 🧱 Session Setup (must be before protected routes and before serving admin.html)
-// Use memory store for development, MongoStore for production
-const sessionConfig = {
-  secret: process.env.SESSION_SECRET || "default_secret",
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 8,
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  },
-};
-
-// Only use MongoStore if MONGO_URI is provided
-if (MONGO_URI && MONGO_URI !== "mongodb://127.0.0.1:27017/toppers_point") {
-  try {
-    sessionConfig.store = MongoStore.create({
-      mongoUrl: MONGO_URI,
-      ttl: 24 * 60 * 60,
-      autoRemove: 'native',
-      touchAfter: 24 * 3600 // lazy session update
-    });
-  } catch (err) {
-    console.warn("⚠️ Could not create MongoStore, using memory store:", err.message);
-  }
-}
-
-app.use(session(sessionConfig));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "default_secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 8,
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    },
+  })
+);
 
 // Protect direct access to admin.html before static middleware
 app.get(["/admin.html", "/admin"], (req, res) => {
@@ -152,7 +94,11 @@ app.use(express.static(path.join(__dirname, "public"), {
 }));
 app.use("/uploads", express.static(uploadsPath)); // serve uploaded images
 
-
+// 🌐 MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point")
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ DB Connection Error:", err));
 
 // 📦 Routes
 app.use("/api/toppers", topperRoutes);
@@ -172,13 +118,9 @@ app.get("/healthz", (req, res) => {
   res.status(200).json({ ok: true, uptime: process.uptime(), env: process.env.NODE_ENV || 'development' });
 });
 
-// 🚀 Start server (only if not running on Vercel)
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 5666;
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
-    console.log(`📱 Frontend available at http://localhost:${PORT}`);
-  });
-}
-
-export default app;
+// 🚀 Start server
+const PORT = process.env.PORT || 5666;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`📱 Frontend available at http://localhost:${PORT}`);
+});
