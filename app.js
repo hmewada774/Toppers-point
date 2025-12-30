@@ -23,55 +23,22 @@ import MongoStore from "connect-mongo";
 dotenv.config();
 const app = express();
 
-
-// 🌐 MongoDB connection (Cached for serverless)
-let isConnected = false;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point";
-
-const connectDB = async () => {
-  if (isConnected) return;
-  try {
-    // Set strictQuery for Mongoose 7+
-    mongoose.set('strictQuery', false);
-
-    const db = await mongoose.connect(MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000, // Timeout after 5s
-    });
-    isConnected = db.connections[0].readyState === 1;
-    console.log("✅ MongoDB Connected");
-  } catch (err) {
-    console.error("❌ DB Connection Error:", err);
-    // don't set isConnected to true if failed
-    throw err;
-  }
-};
-
-// Middleware to ensure DB is connected before handling requests
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    res.status(500).json({ error: "Database connection failed", details: process.env.NODE_ENV === 'development' ? err.message : undefined });
-  }
-});
-
 // Fix __dirname and __filename for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Trust reverse proxy (needed on Render/Heroku/Vercel for secure cookies and correct IPs)
-if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1);
-}
+app.set("trust proxy", 1);
 
-// ✅ Ensure uploads folder exists (important fix)
+// ✅ Ensure uploads folder exists (skip in serverless)
 const uploadsPath = path.join(__dirname, "public", "uploads");
-if (!fs.existsSync(uploadsPath)) {
-  fs.mkdirSync(uploadsPath, { recursive: true });
-  console.log("📁 Created uploads folder at:", uploadsPath);
+try {
+  if (!fs.existsSync(uploadsPath)) {
+    fs.mkdirSync(uploadsPath, { recursive: true });
+    console.log("📁 Created uploads folder at:", uploadsPath);
+  }
+} catch (err) {
+  console.log("⚠️ Could not create uploads folder (serverless environment):", err.message);
 }
 
 // 🧩 Middlewares
@@ -95,6 +62,45 @@ app.use(helmet({ crossOriginEmbedderPolicy: false, contentSecurityPolicy: false 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(compression());
+
+// 🌐 MongoDB connection (Cached for serverless)
+let isConnected = false;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/toppers_point";
+
+const connectDB = async () => {
+  if (isConnected) return;
+  try {
+    mongoose.set('strictQuery', false);
+    const db = await mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+    });
+    isConnected = db.connections[0].readyState === 1;
+    console.log("✅ MongoDB Connected");
+  } catch (err) {
+    console.error("❌ DB Connection Error:", err);
+    throw err;
+  }
+};
+
+// Middleware to ensure DB is connected (only for API routes)
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ error: "Database connection failed", message: err.message });
+  }
+});
+
+app.use('/admin', async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ error: "Database connection failed", message: err.message });
+  }
+});
 
 // 🧱 Session Setup (must be before protected routes and before serving admin.html)
 app.use(
